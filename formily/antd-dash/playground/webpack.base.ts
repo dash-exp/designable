@@ -33,10 +33,11 @@ export default {
   },
   entry: {
     playground: path.resolve(__dirname, './main'),
+    sandbox: path.resolve(__dirname, './sandbox'),
   },
   output: {
     path: path.resolve(__dirname, '../build'),
-    filename: '[name].[hash].bundle.js',
+    filename: '[name].bundle.js',
   },
   resolve: {
     modules: ['node_modules'],
@@ -46,6 +47,7 @@ export default {
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
+    '@formily/reactive': 'Formily.Reactive',
     moment: 'moment',
     antd: 'antd',
   },

@@ -44,14 +44,12 @@ import {
   TreeSelect,
   Cascader,
   Radio,
-  Checkbox,
   Slider,
   Rate,
   NumberPicker,
   Transfer,
   Password,
   DatePicker,
-  TimePicker,
   Upload,
   Switch,
   Text,
@@ -64,9 +62,15 @@ import {
   FormCollapse,
   FormLayout,
   FormGrid,
+  DashTitle,
 } from '../src'
 
-setNpmCDNRegistry('//unpkg.com')
+import { getResourcePath } from './utils/pathUtil';
+
+import { Sandbox } from '@designable/react-sandbox'
+
+setNpmCDNRegistry('//cdn.jsdelivr.net/npm')
+
 
 GlobalRegistry.registerDesignerLocales({
   'zh-CN': {
@@ -95,7 +99,11 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
+GlobalRegistry.setDesignerBehaviors([Form.Behavior, Input.Behavior, Card.Behavior,Password.Behavior,Field.Behavior,NumberPicker.Behavior,
+Select.Behavior,TreeSelect.Behavior,Cascader.Behavior,Rate.Behavior,Slider.Behavior,Text.Behavior,ObjectContainer.Behavior,DashTitle.Behavior])
+
 const App = () => {
+  const resourcePath = getResourcePath();
   const engine = useMemo(
     () =>
       createDesigner({
@@ -131,24 +139,17 @@ const App = () => {
                 TreeSelect,
                 Cascader,
                 Transfer,
-                Checkbox,
                 Radio,
                 DatePicker,
-                TimePicker,
                 Upload,
                 Switch,
                 ObjectContainer,
               ]}
             />
             <ResourceWidget
-              title="sources.Layouts"
+              title="Dash.Base"
               sources={[
-                Card,
-                FormGrid,
-                FormTab,
-                FormLayout,
-                FormCollapse,
-                Space,
+                DashTitle
               ]}
             />
             <ResourceWidget
@@ -174,7 +175,12 @@ const App = () => {
             </ToolbarPanel>
             <ViewportPanel style={{ height: '100%' }}>
               <ViewPanel type="DESIGNABLE">
-                {() => (
+              {() => (
+                  <Sandbox
+                    src={resourcePath}
+                  />
+                )}
+                {/* {() => (
                   <ComponentTreeWidget
                     components={{
                       Form,
@@ -206,19 +212,19 @@ const App = () => {
                       ObjectContainer,
                     }}
                   />
-                )}
+                )} */}
               </ViewPanel>
               <ViewPanel type="JSONTREE" scrollable={false}>
                 {(tree, onChange) => (
                   <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
               </ViewPanel>
-              <ViewPanel type="MARKUP" scrollable={false}>
+              {/* <ViewPanel type="MARKUP" scrollable={false}>
                 {(tree) => <MarkupSchemaWidget tree={tree} />}
               </ViewPanel>
               <ViewPanel type="PREVIEW">
                 {(tree) => <PreviewWidget tree={tree} />}
-              </ViewPanel>
+              </ViewPanel> */}
             </ViewportPanel>
           </WorkspacePanel>
         </Workspace>
