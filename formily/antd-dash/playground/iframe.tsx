@@ -3,7 +3,7 @@ import { ComponentTreeWidget, useTreeNode } from '@designable/react'
 import { observer } from '@formily/reactive-react'
 import 'antd/dist/antd.css'
 import ReactDOM from "react-dom";
-import { PureComponent, useState } from 'react';
+import { PureComponent, useState,useEffect } from 'react';
 import { createElement } from 'react';
 import { getHtmlEleByComponentId,createComponentHolder,indexOfParentContainer } from './dom';
 
@@ -35,37 +35,7 @@ import {
   FormGrid,
 } from '../src'
 
-// export const Content = () => (
-//     <ComponentTreeWidget
-//         components={{
-//           Form,
-//           Field,
-//           Input,
-//           Select,
-//           TreeSelect,
-//           Cascader,
-//           Radio,
-//           Slider,
-//           Rate,
-//           NumberPicker,
-//           Transfer,
-//           Password,
-//           DatePicker,
-//           Upload,
-//           Switch,
-//           Text,
-//           Card,
-//           ArrayCards,
-//           ArrayTable,
-//           Space,
-//           FormTab,
-//           FormCollapse,
-//           FormGrid,
-//           FormLayout,
-//           ObjectContainer,
-//         }}
-//       />
-//     )
+
 export const Content = () => (
   <ComponentTreeWidget
     components={{
@@ -111,6 +81,8 @@ export const Content = () => (
       },
       Form: (props) => {
         // console.log(JSON.stringify(props));
+
+        // 节点删掉后需要删除对应的dom结构
         const adjustComponents = () => {
           const rootContainer = document.getElementById("page-root");
 
@@ -141,6 +113,10 @@ export const Content = () => (
           });
         };
 
+        useEffect(()=>{
+          adjustComponents()
+        })
+
         return (
           <div
             {...props}
@@ -155,7 +131,7 @@ export const Content = () => (
             }}
           >
 
-            {adjustComponents()}
+
             {/* <span data-content-editable="title">FORM:</span> */}
             {props.children ? props.children : <span>拖拽字段进入该区域</span>}
 

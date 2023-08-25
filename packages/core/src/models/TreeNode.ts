@@ -27,6 +27,7 @@ export interface ITreeNode {
   sourceName?: string
   operation?: Operation
   hidden?: boolean
+  editting?: boolean
   isSourceNode?: boolean
   id?: string
   props?: Record<string | number | symbol, any>
@@ -113,6 +114,8 @@ export class TreeNode {
 
   depth = 0
 
+  editting = false
+
   hidden = false
 
   componentName = 'NO_NAME_COMPONENT'
@@ -152,6 +155,7 @@ export class TreeNode {
       componentName: observable.ref,
       props: observable,
       hidden: observable.ref,
+      editting: observable.ref,
       children: observable.shallow,
       designerProps: observable.computed,
       designerLocales: observable.computed,

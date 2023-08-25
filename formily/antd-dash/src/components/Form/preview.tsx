@@ -48,8 +48,8 @@ Form.Behavior = createBehavior({
         },
       },
       defaultProps: {
-        labelCol: 6,
-        wrapperCol: 12,
+        // labelCol: 6,
+        // wrapperCol: 12,
       },
     }
   },

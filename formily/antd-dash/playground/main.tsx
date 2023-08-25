@@ -20,6 +20,7 @@ import {
 } from '@designable/react'
 import {
   SettingsForm,
+  SettingsDrawer,
   setNpmCDNRegistry,
 } from '@designable/react-settings-form'
 import {
@@ -63,6 +64,7 @@ import {
   FormLayout,
   FormGrid,
   DashTitle,
+  Test
 } from '../src'
 
 import { getResourcePath } from './utils/pathUtil';
@@ -99,7 +101,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Form.Behavior, Input.Behavior, Card.Behavior,Password.Behavior,Field.Behavior,NumberPicker.Behavior,
+GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior, Input.Behavior, Card.Behavior,Password.Behavior,Field.Behavior,NumberPicker.Behavior,
 Select.Behavior,TreeSelect.Behavior,Cascader.Behavior,Rate.Behavior,Slider.Behavior,Text.Behavior,ObjectContainer.Behavior,DashTitle.Behavior])
 
 const App = () => {
@@ -130,6 +132,7 @@ const App = () => {
             <ResourceWidget
               title="sources.Inputs"
               sources={[
+                Test,
                 Input,
                 Password,
                 NumberPicker,
@@ -228,9 +231,10 @@ const App = () => {
             </ViewportPanel>
           </WorkspacePanel>
         </Workspace>
-        <SettingsPanel title="panels.PropertySettings">
+        {/* <SettingsPanel title="panels.PropertySettings">
           <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
-        </SettingsPanel>
+        </SettingsPanel> */}
+        <SettingsDrawer uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
       </StudioPanel>
     </Designer>
   )

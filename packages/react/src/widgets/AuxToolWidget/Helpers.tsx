@@ -4,6 +4,7 @@ import { reaction } from '@formily/reactive'
 import { usePrefix, useViewport } from '../../hooks'
 import { Selector } from './Selector'
 import { Copy } from './Copy'
+import { Setting } from './Setting'
 import { Delete } from './Delete'
 import { DragHandler } from './DragHandler'
 import cls from 'classnames'
@@ -105,6 +106,7 @@ export const Helpers: React.FC<IHelpersProps> = ({ node, nodeRect }) => {
     >
       <div className={cls(prefix + '-content')}>
         <Selector node={node} />
+        <Setting node={node} />
         {node?.allowClone() === false ? null : <Copy node={node} />}
         {node?.allowDrag() === false ? null : <DragHandler node={node} />}
         {node?.allowDelete() === false ? null : <Delete node={node} />}
