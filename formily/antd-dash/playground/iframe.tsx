@@ -1,43 +1,62 @@
 import React,{Children} from 'react'
-import { ComponentTreeWidget, useTreeNode } from '@designable/react'
+import { ComponentTreeWidget, useTreeNode,useDesigner } from '@designable/react'
 import { observer } from '@formily/reactive-react'
 import 'antd/dist/antd.css'
 import ReactDOM from "react-dom";
+import { GlobalRegistry,UpdateNodePropsEvent,RemoveNodeEvent,InsertAfterEvent,InsertBeforeEvent,PrependNodeEvent,AppendNodeEvent,CloneNodeEvent } from '@designable/core'
 import { PureComponent, useState,useEffect } from 'react';
 import { createElement } from 'react';
-import { getHtmlEleByComponentId,createComponentHolder,indexOfParentContainer } from './dom';
+import { getHtmlEleByComponentId,createComponentHolder,indexOfParentContainer,removeEleByCmpId,loadInitialCompHtml } from './dom';
+import './iframe.less';
 
-import {
-  Form,
-  Field,
-  Input,
-  Select,
-  TreeSelect,
-  Cascader,
-  Radio,
-  Slider,
-  Rate,
-  NumberPicker,
-  Transfer,
-  Password,
-  DatePicker,
-  Upload,
-  Switch,
-  Text,
-  Card,
-  ArrayCards,
-  ObjectContainer,
-  ArrayTable,
-  Space,
-  FormTab,
-  FormCollapse,
-  FormLayout,
-  FormGrid,
-} from '../src'
+export const Content = () => {
 
+  const designer = useDesigner()
+  //组件删除
+  designer.subscribeTo(RemoveNodeEvent, (event) => {
+    const { source, target } = event.data
+    setTimeout(() => {
+      removeEleByCmpId(target.id)
+    }, 100);
+    console.log('page removeNode',source,target)
+  })
 
-export const Content = () => (
-  <ComponentTreeWidget
+  //组件新增
+  designer.subscribeTo(InsertAfterEvent, (event) => {
+    const { source, target } = event.data
+    console.log('page InsertAfterEvent',source,target)
+
+  })
+
+  designer.subscribeTo(PrependNodeEvent, (event) => {
+    const { source, target } = event.data
+    console.log('page PrependNodeEvent',source,target)
+
+  })
+
+  designer.subscribeTo(InsertBeforeEvent, (event) => {
+    const { source, target } = event.data
+    console.log('page InsertBeforeEvent',source,target)
+
+  })
+
+  designer.subscribeTo(AppendNodeEvent, (event) => {
+    const { source, target } = event.data
+    console.log('page AppendNodeEvent',source,target)
+
+  })
+
+  designer.subscribeTo(UpdateNodePropsEvent, (event) => {
+    const { source, target } = event.data
+    loadInitialCompHtml(target)
+    console.log('page UpdateNodePropsEvent',source,target)
+
+  })
+
+  
+
+  return (
+    <ComponentTreeWidget
     components={{
       Field: observer((props) => {
         const node = useTreeNode()
@@ -82,6 +101,8 @@ export const Content = () => (
       Form: (props) => {
         // console.log(JSON.stringify(props));
 
+        
+
         // 节点删掉后需要删除对应的dom结构
         const adjustComponents = () => {
           const rootContainer = document.getElementById("page-root");
@@ -98,7 +119,7 @@ export const Content = () => (
             let cmpName = child.props.node['componentName'];
             let componentDomEle = getHtmlEleByComponentId(nodeId);
             if (!componentDomEle) {
-              createComponentHolder(rootContainer, cmpName, nodeId);
+              createComponentHolder(rootContainer, cmpName, nodeId,child.props.node);
               componentDomEle = getHtmlEleByComponentId(nodeId);
             }
             const domIndex = indexOfParentContainer(componentDomEle);
@@ -121,24 +142,18 @@ export const Content = () => (
           <div
             {...props}
             style={{
-              background: '#eee',
-              border: '1px solid #ddd',
               display: 'flex',
-              padding: 10,
-              height: props.children ? 'auto' : 150,
               justifyContent: 'center',
               alignItems: 'center',
             }}
           >
-
-
             {/* <span data-content-editable="title">FORM:</span> */}
             {props.children ? props.children : <span>拖拽字段进入该区域</span>}
-
-
           </div>
         )
       },
     }}
   />
-)
+  )
+}
+  

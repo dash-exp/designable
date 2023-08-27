@@ -15,11 +15,8 @@ import {
   ToolbarPanel,
   ViewportPanel,
   ViewPanel,
-  SettingsPanel,
-  ComponentTreeWidget,
 } from '@designable/react'
 import {
-  SettingsForm,
   SettingsDrawer,
   setNpmCDNRegistry,
 } from '@designable/react-settings-form'
@@ -29,14 +26,13 @@ import {
   Shortcut,
   KeyCode,
 } from '@designable/core'
+
 import {
   LogoWidget,
   ActionsWidget,
-  PreviewWidget,
   SchemaEditorWidget,
-  MarkupSchemaWidget,
 } from './widgets'
-import { saveSchema } from './service'
+import { saveSchema,saveComp } from './service'
 import {
   Form,
   Field,
@@ -44,25 +40,13 @@ import {
   Select,
   TreeSelect,
   Cascader,
-  Radio,
   Slider,
   Rate,
   NumberPicker,
-  Transfer,
   Password,
-  DatePicker,
-  Upload,
-  Switch,
   Text,
   Card,
-  ArrayCards,
   ObjectContainer,
-  ArrayTable,
-  Space,
-  FormTab,
-  FormCollapse,
-  FormLayout,
-  FormGrid,
   DashTitle,
   Test
 } from '../src'
@@ -101,8 +85,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior, Input.Behavior, Card.Behavior,Password.Behavior,Field.Behavior,NumberPicker.Behavior,
-Select.Behavior,TreeSelect.Behavior,Cascader.Behavior,Rate.Behavior,Slider.Behavior,Text.Behavior,ObjectContainer.Behavior,DashTitle.Behavior])
+GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior,DashTitle.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -124,6 +107,7 @@ const App = () => {
       }),
     []
   )
+
   return (
     <Designer engine={engine}>
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>
@@ -132,21 +116,7 @@ const App = () => {
             <ResourceWidget
               title="sources.Inputs"
               sources={[
-                Test,
-                Input,
-                Password,
-                NumberPicker,
-                Rate,
-                Slider,
-                Select,
-                TreeSelect,
-                Cascader,
-                Transfer,
-                Radio,
-                DatePicker,
-                Upload,
-                Switch,
-                ObjectContainer,
+                Test
               ]}
             />
             <ResourceWidget
@@ -155,11 +125,6 @@ const App = () => {
                 DashTitle
               ]}
             />
-            <ResourceWidget
-              title="sources.Arrays"
-              sources={[ArrayCards, ArrayTable]}
-            />
-            <ResourceWidget title="sources.Displays" sources={[Text]} />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />
@@ -173,7 +138,7 @@ const App = () => {
             <ToolbarPanel>
               <DesignerToolsWidget />
               <ViewToolsWidget
-                use={['DESIGNABLE', 'JSONTREE', 'MARKUP', 'PREVIEW']}
+                use={['DESIGNABLE', 'JSONTREE']}
               />
             </ToolbarPanel>
             <ViewportPanel style={{ height: '100%' }}>
@@ -183,58 +148,21 @@ const App = () => {
                     src={resourcePath}
                   />
                 )}
-                {/* {() => (
-                  <ComponentTreeWidget
-                    components={{
-                      Form,
-                      Field,
-                      Input,
-                      Select,
-                      TreeSelect,
-                      Cascader,
-                      Radio,
-                      Checkbox,
-                      Slider,
-                      Rate,
-                      NumberPicker,
-                      Transfer,
-                      Password,
-                      DatePicker,
-                      TimePicker,
-                      Upload,
-                      Switch,
-                      Text,
-                      Card,
-                      ArrayCards,
-                      ArrayTable,
-                      Space,
-                      FormTab,
-                      FormCollapse,
-                      FormGrid,
-                      FormLayout,
-                      ObjectContainer,
-                    }}
-                  />
-                )} */}
+ 
               </ViewPanel>
               <ViewPanel type="JSONTREE" scrollable={false}>
                 {(tree, onChange) => (
                   <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
               </ViewPanel>
-              {/* <ViewPanel type="MARKUP" scrollable={false}>
-                {(tree) => <MarkupSchemaWidget tree={tree} />}
-              </ViewPanel>
-              <ViewPanel type="PREVIEW">
-                {(tree) => <PreviewWidget tree={tree} />}
-              </ViewPanel> */}
+ 
             </ViewportPanel>
           </WorkspacePanel>
         </Workspace>
         {/* <SettingsPanel title="panels.PropertySettings">
           <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
         </SettingsPanel> */}
-        <SettingsDrawer uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
+        <SettingsDrawer submitHandler={saveComp} />
       </StudioPanel>
     </Designer>
   )

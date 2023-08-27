@@ -13,7 +13,7 @@ export const LogoWidget: React.FC = () => {
     <div style={{ display: 'flex', alignItems: 'center', fontSize: 14 }}>
       <img
         src={url}
-        style={{ margin: '12px 8px', height: 18, width: 'auto' }}
+        style={{ margin: '8px 8px', height: 24, width: 'auto' }}
       />
     </div>
   )

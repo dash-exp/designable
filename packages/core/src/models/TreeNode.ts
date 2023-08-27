@@ -132,6 +132,7 @@ export class TreeNode {
     if (node instanceof TreeNode) {
       return node
     }
+    // json对象key不能以数字开头
     this.id = node.id || uid()
     if (parent) {
       this.parent = parent

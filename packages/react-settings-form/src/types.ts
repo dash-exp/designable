@@ -8,3 +8,12 @@ export interface ISettingFormProps {
   effects?: (form: Form) => void
   scope?: any
 }
+
+export interface ISettingDrawerProps {
+  className?: string
+  style?: React.CSSProperties
+  submitHandler?: (node: TreeNode) => void
+  components?: Record<string, React.FC<any>>
+  effects?: (form: Form) => void
+  scope?: any
+}

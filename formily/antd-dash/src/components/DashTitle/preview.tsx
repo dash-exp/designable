@@ -6,28 +6,45 @@ import { createFieldSchema } from '../Field'
 import { AllSchemas } from '../../schemas'
 import { AllLocales } from '../../locales'
 
-export const DashTitle: DnFC<React.ComponentProps<typeof FormilyCheckbox>> =
-  FormilyCheckbox
+export interface IDesignableTitletProps {
+  value?: string
+  content?: string
+  mode?: 'normal' | 'h1' | 'h2' | 'h3' | 'p'
+  style?: React.CSSProperties
+  className?: string
+}
+
+export const DashTitle: DnFC<IDesignableTitleProps> = (props) => {
+  const tagName = props.mode === 'normal' || !props.mode ? 'div' : props.mode
+  return React.createElement(
+    tagName,
+    {
+      ...props,
+      className: cls(props.className, 'dash-title'),
+      'data-content-editable': 'x-component-props.content',
+    },
+    props.content
+  )
+}
 
 DashTitle.Behavior = createBehavior({
   name: 'Dash Title',
   // extends: ['Field'],
-  selector: (node) => node.props['x-component'] === 'Dash.Title',
+  selector: (node) => node.props['x-component'] === 'DashTitle',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.DashTitle),
+    propsSchema: AllSchemas.DashTitle,
   },
   designerLocales: AllLocales.DashTitle,
 })
 
 DashTitle.Resource = createResource({
-  icon: 'PasswordSource',
+  icon: 'TextSource',
   elements: [
     {
       componentName: 'Field',
       props: {
-        title: 'DashTitle',
-        'x-decorator': 'FormItem',
-        'x-component': 'Dash.Title',
+        'x-type': 'content/title/title',
+        'x-component': 'DashTitle',
       },
     },
   ],

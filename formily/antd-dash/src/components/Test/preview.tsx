@@ -43,7 +43,7 @@ Test.Resource = createResource({
     {
       componentName: 'Field',
       props: {
-        type: 'string',
+        'x-type': 'core/test/test',
         'x-component': 'Test',
       },
     },

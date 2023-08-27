@@ -1,4 +1,5 @@
 import { loadInitialPageSchema, loadCompHtml } from './service'
+import {getSchemaPath,getResourcePath} from './utils/pathUtil'
 
 export function indexOfParentContainer(ele?: HTMLElement) {
     const index = Array.from(
@@ -8,27 +9,40 @@ export function indexOfParentContainer(ele?: HTMLElement) {
 }
 
 
-export function createComponentHolder(containerEle: HTMLElement, cmpName: string, cmpId: string): void {
+export function createComponentHolder(containerEle: HTMLElement, cmpName: string, cmpId: string,child:TreeNode): void {
     const div = document.createElement('div');
     div.innerHTML = `<div class="${cmpName} cmp-holder" cmpid="${cmpId}" style="height:100px;">
           <section></section>
           <div class="cmp-ghost-container" data-designer-node-id="${cmpId}"></div>
       </div>`;
     containerEle.append(div.firstChild!);
-    loadInitialCompHtml(cmpId);
+    loadInitialCompHtml(child);
 }
 
 
-export function loadInitialCompHtml(cmpId: string): void {
-    const selector = `.cmp-holder[cmpid='${cmpId}'] section`;
+export function loadInitialCompHtml(node:TreeNode): void {
+   
+    const schemaPath = getSchemaPath(node).replace("$.","")
+    const pagePath = location.pathname.split('.html')[0]
+    const itemPath = pagePath + '/:content/'+schemaPath + '.html'
+    const selector = `.cmp-holder[cmpid='${node.id}'] section`;
     const cmpEle = document.querySelector(selector);
-    loadCompHtml("").then((html)=>{
-        cmpEle?.outerHTML= html;
-    });
+    setTimeout(() => {
+        loadCompHtml(itemPath).then((html)=>{
+            console.log('loadInitialCompHtml',html)
+            cmpEle?.outerHTML= html;
+        });
+    }, 200);
 
 }  
   
 export function getHtmlEleByComponentId(id: String) : HTMLElement | null {
     const selector = `.cmp-holder[cmpid='${id}']`;
     return document.querySelector(selector);
+}
+
+export function removeEleByCmpId(id: String) {
+    const selector = `.cmp-holder[cmpid='${id}']`;
+    const ele = document.querySelector(selector)
+    ele?.parentNode.removeChild(ele) 
 }

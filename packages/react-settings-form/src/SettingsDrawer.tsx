@@ -13,7 +13,7 @@ import {
   NodePathWidget,
 } from '@designable/react'
 import { SchemaField } from './SchemaField'
-import { ISettingFormProps } from './types'
+import { ISettingDrawerProps } from './types'
 import { SettingsFormContext } from './shared/context'
 import { useLocales, useSnapshot } from './effects'
 import { Empty,Drawer,Button,Space } from 'antd'
@@ -25,7 +25,8 @@ const GlobalState = {
   idleRequest: null,
 }
 
-export const SettingsDrawer: React.FC<ISettingFormProps> = observer(
+
+export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
   (props) => {
     const workbench = useWorkbench()
     const currentWorkspace =
@@ -34,10 +35,10 @@ export const SettingsDrawer: React.FC<ISettingFormProps> = observer(
     const operation = useOperation(currentWorkspaceId)
     const node = useSelectedNode(currentWorkspaceId)
     const selected = useSelected(currentWorkspaceId)
+    const {submitHandler} = props
 
     const prefix = usePrefix('settings-form')
     const schema = node?.designerProps?.propsSchema
-    console.log(node.designerProps?.propsSchema)
     const isEmpty = !(
       node && node.editting &&
       node.designerProps?.propsSchema &&
@@ -61,8 +62,9 @@ export const SettingsDrawer: React.FC<ISettingFormProps> = observer(
     };
 
     const onSubmit = () => {
-      node.props = form.values
-      node.editting =false;
+      node.setProps(form.values)
+      submitHandler(node)
+      node.editting =false
     };
 
     const render = () => {
