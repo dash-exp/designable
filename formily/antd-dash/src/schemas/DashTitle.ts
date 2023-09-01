@@ -42,3 +42,8 @@ export const DashTitle: ISchema = {
 		}
 	}
 }
+
+export const DashTitleDefaultProp = {
+  title:'title',
+  subTitle:'subtitle'
+}

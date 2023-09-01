@@ -25,7 +25,69 @@ export const Test: ISchema = {
             defaultValue: 'normal',
           },
           enum: ['h1', 'h2', 'h3', 'p', 'normal'],
-        },
+        }, 
+        cards:{
+          type: 'array',
+          'x-component': 'ArrayItems',
+          'x-decorator': 'FormItem',
+          title: 'cards',
+          items: {
+            type: 'object',
+            'x-decorator': 'ArrayItems.Item',
+            properties: {
+              sort: {
+                type: 'void',
+                'x-decorator': 'FormItem',
+                'x-component': 'ArrayItems.SortHandle',
+              },
+              config: {
+                type: 'void',
+                title: 'setting',
+                'x-component': 'Editable.Popover',
+                'x-reactions':
+                '{{(field)=>field.title = field.parent.value.title || field.title}}',
+                properties: {
+                  title: {
+                    type: 'string',
+                    title: 'Title',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                  },
+                  desc: {
+                    type: 'string',
+                    title: 'Description',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input.TextArea',
+                  },
+                  link: {
+                    type: 'string',
+                    title: 'Link',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                  },
+                  image: {
+                    type: 'string',
+                    title: 'Image',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                  },
+                },
+              },
+              remove: {
+                type: 'void',
+                'x-decorator': 'FormItem',
+                'x-component': 'ArrayItems.Remove',
+              },
+            },
+          },
+          properties: {
+            add: {
+              type: 'void',
+              title: '添加条目',
+              'x-component': 'ArrayItems.Addition',
+            },
+          },
+        }     
 			}
 		},
     "style-group": {
@@ -49,4 +111,9 @@ export const Test: ISchema = {
 			}
 		}
 	}
+}
+
+export const DefaultTestProp = {
+  title:'title',
+  content:'content'
 }

@@ -168,13 +168,11 @@ export const OutlineTreeNode: React.FC<IOutlineTreeNodeProps> = observer(
               {renderActions(node)}
               {node !== node.root && (
                 <IconWidget
-                  className={cls(prefix + '-hidden-icon', {
-                    hidden: node.hidden,
-                  })}
-                  infer={node.hidden ? 'EyeClose' : 'Eye'}
+                  infer={'Setting'}
                   size={14}
                   onClick={() => {
-                    node.hidden = !node.hidden
+                    selection.select(node)
+                    node.editting = true
                   }}
                 />
               )}

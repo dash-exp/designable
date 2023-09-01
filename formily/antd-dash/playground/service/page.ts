@@ -17,11 +17,18 @@ import {getSchemaPath,getResourcePath} from '../utils/pathUtil'
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-  const token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjE2OWE3MDU0LTlkNjgtNDdmNS1iODE5LTcyYmFhYzE5NjA3ZCJ9.WAQ-zvxDbU9yktjLoVKOoAn2aVA5V_3ejPZduG19hVRwwFF3ps25psrzCoa9k5a_ITFHDCFoa3IbAMRdsrXa2A';
+  const access_token = localStorage.getItem('access_token')
+  const token = `Bearer ${access_token}`;
+
   config.headers.Authorization =  token;
   return config;
 });
 
+const  CONTENT_TYPE_JSON = {
+  headers:{
+    'Content-Type': 'application/json'
+  }
+}
 
 export const loadInitialPageSchema = (designer: Engine) => {
   const itemPath = getResourcePath() 
@@ -32,7 +39,6 @@ export const loadInitialPageSchema = (designer: Engine) => {
       'schema':result.data.data.content.schema
       
     }
-    console.log(schema)
     designer.setCurrentTree(
       transformToTreeNode(schema)
     )
@@ -44,7 +50,6 @@ export async function loadCompHtml (url:string) {
     //https://design.oppo.com/content/oasis/in/en/jcr:content/root/responsivegrid/article_card_copy_16.html
     let result = 'html'
     await axios.get(url).then((resp)=>{
-      console.log(resp)
       result = resp.data
     })
 
@@ -53,8 +58,8 @@ export async function loadCompHtml (url:string) {
 
 export const savePageContent = (designer: Engine) => {
   const itemPath = getResourcePath() 
-  const schema = transformToSchema(designer.getCurrentTree())
-  axios.post(`/api/content/page/updatePageContent?itemPath=${itemPath}`,schema).then((result)=>{
+  const schema = JSON.stringify(transformToSchema(designer.getCurrentTree()))
+  axios.post(`/api/content/page/updatePageContent?itemPath=${itemPath}`,schema,CONTENT_TYPE_JSON).then((result)=>{
     console.log(result)
   })
   message.success('Save Success')
@@ -63,9 +68,9 @@ export const savePageContent = (designer: Engine) => {
 export const saveComp = (node:TreeNode) => {
   const schemaPath = getSchemaPath(node)
   const itemPath = getResourcePath() + '/:content/'+schemaPath
-  console.log(itemPath,node.props)
+  //console.log(itemPath,node.props)
   axios.post(`/api/content/page/saveComp?itemPath=${itemPath}`,node.props).then((result)=>{
-    console.log(result)
+    //console.log(result)
   })
   message.success('Save Success')
 }

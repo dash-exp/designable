@@ -12,6 +12,7 @@ import {
   ArrayItems,
   ArrayTable,
   FormCollapse,
+  Editable,
   FormGrid,
   FormLayout,
   FormTab,
@@ -74,5 +75,6 @@ export const SchemaField = createSchemaField({
     FormGrid,
     FormLayout,
     FormTab,
+    Editable
   },
 })

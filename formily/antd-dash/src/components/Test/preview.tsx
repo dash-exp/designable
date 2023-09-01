@@ -45,6 +45,7 @@ Test.Resource = createResource({
       props: {
         'x-type': 'core/test/test',
         'x-component': 'Test',
+        ...AllSchemas.DefaultTestProp
       },
     },
   ],

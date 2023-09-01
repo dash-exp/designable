@@ -45,6 +45,7 @@ DashTitle.Resource = createResource({
       props: {
         'x-type': 'content/title/title',
         'x-component': 'DashTitle',
+        ...AllSchemas.DashTitleDefaultProp
       },
     },
   ],

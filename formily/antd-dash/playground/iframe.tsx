@@ -18,38 +18,38 @@ export const Content = () => {
     setTimeout(() => {
       removeEleByCmpId(target.id)
     }, 100);
-    console.log('page removeNode',source,target)
+    console.log('iframe removeNode',source,target)
   })
 
   //组件新增
   designer.subscribeTo(InsertAfterEvent, (event) => {
     const { source, target } = event.data
-    console.log('page InsertAfterEvent',source,target)
+    console.log('iframe InsertAfterEvent',source,target)
 
   })
 
   designer.subscribeTo(PrependNodeEvent, (event) => {
     const { source, target } = event.data
-    console.log('page PrependNodeEvent',source,target)
+    console.log('iframe PrependNodeEvent',source,target)
 
   })
 
   designer.subscribeTo(InsertBeforeEvent, (event) => {
     const { source, target } = event.data
-    console.log('page InsertBeforeEvent',source,target)
+    console.log('iframe InsertBeforeEvent',source,target)
 
   })
 
   designer.subscribeTo(AppendNodeEvent, (event) => {
     const { source, target } = event.data
-    console.log('page AppendNodeEvent',source,target)
+    console.log('iframe AppendNodeEvent',source,target)
 
   })
 
   designer.subscribeTo(UpdateNodePropsEvent, (event) => {
     const { source, target } = event.data
     loadInitialCompHtml(target)
-    console.log('page UpdateNodePropsEvent',source,target)
+    console.log('iframe UpdateNodePropsEvent',source,target)
 
   })
 
@@ -64,8 +64,7 @@ export const Content = () => {
         const nodeId = node.props['x-designable-id'];
         const selector = `.cmp-holder[cmpid='${nodeId}']`;
         const container = document.querySelector(selector); 
-        const pageContainer = document.getElementById('page-root');
-        if(container === null) {
+         if(container === null) {
           return;
         }
         return ReactDOM.createPortal(
@@ -73,7 +72,6 @@ export const Content = () => {
             display: 'block',
             ...props.style,
           }}>
-            {/* <span data-content-editable="title">{node.props.title}</span> */}
             {props.children}
           </div>,
           container
@@ -116,6 +114,7 @@ export const Content = () => {
           // 调整对应dom的位置或者生成新的组件dom结构
           Children.forEach(props.children, (child, index) => {
             let nodeId = child.props.node['id'];
+
             let cmpName = child.props.node['componentName'];
             let componentDomEle = getHtmlEleByComponentId(nodeId);
             if (!componentDomEle) {
@@ -123,6 +122,8 @@ export const Content = () => {
               componentDomEle = getHtmlEleByComponentId(nodeId);
             }
             const domIndex = indexOfParentContainer(componentDomEle);
+            //console.log('index','dom',domIndex,'node',child.props.node.props['x-index'])
+
             if (index !== domIndex) {
               if (preEle === null) {
                 rootContainer.prepend(componentDomEle);
@@ -135,8 +136,9 @@ export const Content = () => {
         };
 
         useEffect(()=>{
+          console.log("adjustComponents")
           adjustComponents()
-        })
+        },[props.children])
 
         return (
           <div
