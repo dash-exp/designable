@@ -31,6 +31,7 @@ import {
   LogoWidget,
   ActionsWidget,
   SchemaEditorWidget,
+  PreviewPageWidget
 } from './widgets'
 import { saveSchema,saveComp } from './service'
 import {
@@ -50,6 +51,8 @@ import {
   DashTitle,
   Test
 } from '../src'
+
+import './main.less'
 
 import { getResourcePath } from './utils/pathUtil';
 
@@ -129,16 +132,16 @@ const App = () => {
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />
           </CompositePanel.Item>
-          <CompositePanel.Item title="panels.History" icon="History">
+          {/* <CompositePanel.Item title="panels.History" icon="History">
             <HistoryWidget />
-          </CompositePanel.Item>
+          </CompositePanel.Item> */}
         </CompositePanel>
         <Workspace id="form">
           <WorkspacePanel>
             <ToolbarPanel>
-              <DesignerToolsWidget />
+              <DesignerToolsWidget use={['SCREEN_TYPE']}/>
               <ViewToolsWidget
-                use={['DESIGNABLE', 'JSONTREE']}
+                use={['DESIGNABLE', 'JSONTREE','PREVIEW']}
               />
             </ToolbarPanel>
             <ViewportPanel style={{ height: '100%' }}>
@@ -155,7 +158,11 @@ const App = () => {
                   <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
               </ViewPanel>
- 
+              <ViewPanel type="PREVIEW" scrollable={false}>
+                {(tree) => (
+                  <PreviewPageWidget tree={tree} />
+                )}
+              </ViewPanel>
             </ViewportPanel>
           </WorkspacePanel>
         </Workspace>

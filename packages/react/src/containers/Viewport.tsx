@@ -61,9 +61,9 @@ export const Viewport: React.FC<IViewportProps> = ({
     >
       {props.children}
       <AuxToolWidget />
-      <EmptyWidget dragTipsDirection={dragTipsDirection}>
+      {/* <EmptyWidget dragTipsDirection={dragTipsDirection}>
         {placeholder}
-      </EmptyWidget>
+      </EmptyWidget> */}
     </div>
   )
 }

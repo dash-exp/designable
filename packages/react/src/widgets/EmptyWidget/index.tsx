@@ -46,6 +46,7 @@ export const EmptyWidget: React.FC<IEmptyWidgetProps> = observer((props) => {
     return (
       <div className={prefix}>
         {props.children ? props.children : renderEmpty()}
+        
       </div>
     )
   }

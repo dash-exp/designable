@@ -11,9 +11,9 @@ export function indexOfParentContainer(ele?: HTMLElement) {
 
 export function createComponentHolder(containerEle: HTMLElement, cmpName: string, cmpId: string,child:TreeNode): void {
     const div = document.createElement('div');
-    div.innerHTML = `<div class="${cmpName} cmp-holder" cmpid="${cmpId}" style="height:100px;">
+    div.innerHTML = `<div class="${cmpName} dash-editable" cmpid="${cmpId}" style="height:100px;">
           <section></section>
-          <div class="cmp-ghost-container" data-designer-node-id="${cmpId}"></div>
+          <div class="dash-editable-placeholder" data-designer-node-id="${cmpId}"></div>
       </div>`;
     containerEle.append(div.firstChild!);
     loadInitialCompHtml(child);
@@ -25,7 +25,7 @@ export function loadInitialCompHtml(node:TreeNode): void {
     const schemaPath = getSchemaPath(node).replace("$.","")
     const pagePath = location.pathname.split('.html')[0]
     const itemPath = pagePath + '/:content/'+schemaPath + '.html'
-    const selector = `.cmp-holder[cmpid='${node.id}'] section`;
+    const selector = `.dash-editable[cmpid='${node.id}'] section`;
     const cmpEle = document.querySelector(selector);
     setTimeout(() => {
         loadCompHtml(itemPath).then((html)=>{
@@ -37,12 +37,12 @@ export function loadInitialCompHtml(node:TreeNode): void {
 }  
   
 export function getHtmlEleByComponentId(id: String) : HTMLElement | null {
-    const selector = `.cmp-holder[cmpid='${id}']`;
+    const selector = `.dash-editable[cmpid='${id}']`;
     return document.querySelector(selector);
 }
 
 export function removeEleByCmpId(id: String) {
-    const selector = `.cmp-holder[cmpid='${id}']`;
+    const selector = `.dash-editable[cmpid='${id}']`;
     const ele = document.querySelector(selector)
     ele?.parentNode.removeChild(ele) 
 }

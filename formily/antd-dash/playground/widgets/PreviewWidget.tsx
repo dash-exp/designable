@@ -32,6 +32,7 @@ import {
 import { Card, Slider, Rate } from 'antd'
 import { TreeNode } from '@designable/core'
 import { transformToSchema } from '@designable/formily-transformer'
+import {getResourcePath} from '../utils/pathUtil'
 
 const Text: React.FC<{
   value?: string
@@ -88,4 +89,17 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
       <SchemaField schema={schema} />
     </Form>
   )
+}
+
+export const PreviewPageWidget: React.FC<IPreviewWidgetProps> = (props) => {
+  const url = getResourcePath()
+  return React.createElement('iframe', {
+    src:`${url}.html?mode=publish`,
+    style: {
+      height: '100%',
+      width: '100%',
+      border: 'none',
+      display: 'block',
+    },
+  })
 }

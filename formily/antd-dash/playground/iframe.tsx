@@ -62,13 +62,13 @@ export const Content = () => {
         const node = useTreeNode()
         // console.log(node)
         const nodeId = node.props['x-designable-id'];
-        const selector = `.cmp-holder[cmpid='${nodeId}']`;
+        const selector = `.dash-editable[cmpid='${nodeId}']`;
         const container = document.querySelector(selector); 
          if(container === null) {
           return;
         }
         return ReactDOM.createPortal(
-          <div className="cmp-ghost-container" {...props} style={{
+          <div className="dash-editable-placeholder" {...props} style={{
             display: 'block',
             ...props.style,
           }}>
@@ -97,13 +97,10 @@ export const Content = () => {
         )
       },
       Form: (props) => {
-        // console.log(JSON.stringify(props));
-
-        
-
         // 节点删掉后需要删除对应的dom结构
+        const rootContainer = document.getElementById("page-root");
         const adjustComponents = () => {
-          const rootContainer = document.getElementById("page-root");
+          // const rootContainer = document.getElementById("page-root");
 
           if(rootContainer == null) {
             return;
@@ -140,19 +137,30 @@ export const Content = () => {
           adjustComponents()
         },[props.children])
 
-        return (
-          <div
-            {...props}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {/* <span data-content-editable="title">FORM:</span> */}
-            {props.children ? props.children : <span>拖拽字段进入该区域</span>}
-          </div>
-        )
+        // return (
+        //   <div
+        //     {...props}
+        //     style={{
+        //       display: 'flex',
+        //       justifyContent: 'center',
+        //       alignItems: 'center',
+        //     }}
+        //   >
+        //     {/* <span data-content-editable="title">FORM:</span> */}
+        //     {props.children ? props.children : <span>拖拽字段进入该区域</span>}
+        //   </div>
+        // )
+        return ReactDOM.createPortal(
+          <div className="dash-editable-container" {...props} style={{
+            display: 'block',
+            ...props.style,
+          }}>
+            {props.children}
+
+            <div className="drag-holder">Drag components here</div>
+          </div>,
+          rootContainer
+        );
       },
     }}
   />

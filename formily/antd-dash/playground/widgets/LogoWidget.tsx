@@ -11,10 +11,12 @@ export const LogoWidget: React.FC = () => {
   const url = logo[useTheme()]
   return (
     <div style={{ display: 'flex', alignItems: 'center', fontSize: 14 }}>
+      <a href="/cm/sites.html/content">
       <img
         src={url}
         style={{ margin: '8px 8px', height: 24, width: 'auto' }}
       />
+      </a>
     </div>
   )
 }
