@@ -36,7 +36,9 @@ import {
   DisplayStyleSetter,
   FlexStyleSetter,
   DrawerSetter,
+  ModalSetter,
   CollapseItem,
+  AssetPicker,
 } from './components'
 
 export const SchemaField = createSchemaField({
@@ -61,9 +63,11 @@ export const SchemaField = createSchemaField({
     FlexStyleSetter,
     FontStyleSetter,
     DrawerSetter,
+    ModalSetter,
     NumberPicker,
     DatePicker,
     TimePicker,
+    AssetPicker,
     Select,
     Radio,
     Slider,

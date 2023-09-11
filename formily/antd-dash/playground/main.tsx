@@ -49,6 +49,8 @@ import {
   Card,
   ObjectContainer,
   DashTitle,
+  DashImage,
+  HtmlScript,
   Test
 } from '../src'
 
@@ -88,7 +90,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior,DashTitle.Behavior])
+GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -125,7 +127,7 @@ const App = () => {
             <ResourceWidget
               title="Dash.Base"
               sources={[
-                DashTitle
+                DashTitle,HtmlScript,DashImage
               ]}
             />
           </CompositePanel.Item>

@@ -29,7 +29,7 @@ export function loadInitialCompHtml(node:TreeNode): void {
     const cmpEle = document.querySelector(selector);
     setTimeout(() => {
         loadCompHtml(itemPath).then((html)=>{
-            console.log('loadInitialCompHtml',html)
+            //console.log('loadInitialCompHtml',html)
             cmpEle?.outerHTML= html;
         });
     }, 200);

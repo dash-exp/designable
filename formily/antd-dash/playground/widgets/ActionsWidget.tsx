@@ -23,14 +23,16 @@ export const ActionsWidget = observer(() => {
   //组件删除
   designer.subscribeTo(RemoveNodeEvent, (event) => {
     const { source, target } = event.data
+    console.log('action removeNode',source,target)
     setTimeout(() => {
       savePageContent(designer)
     }, 100);
   })
 
-  //组件删除
+  //组件添加
   designer.subscribeTo(InsertAfterEvent, (event) => {
     const { source, target } = event.data
+    console.log('action InsertAfterEvent',source,target)
     setTimeout(() => {
       savePageContent(designer)
     }, 100);
@@ -38,6 +40,7 @@ export const ActionsWidget = observer(() => {
 
   designer.subscribeTo(PrependNodeEvent, (event) => {
     const { source, target } = event.data
+    console.log('action PrependNodeEvent',source,target)
     setTimeout(() => {
       savePageContent(designer)
     }, 100);
@@ -45,6 +48,7 @@ export const ActionsWidget = observer(() => {
 
   designer.subscribeTo(InsertBeforeEvent, (event) => {
     const { source, target } = event.data
+    console.log('action InsertBeforeEvent',source,target)
     setTimeout(() => {
       savePageContent(designer)
     }, 100);
@@ -52,6 +56,7 @@ export const ActionsWidget = observer(() => {
 
   designer.subscribeTo(AppendNodeEvent, (event) => {
     const { source, target } = event.data
+    console.log('action AppendNodeEvent',source,target)
     setTimeout(() => {
       savePageContent(designer)
     }, 100);

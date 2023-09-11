@@ -1,8 +1,6 @@
 import React from 'react'
-import { Checkbox as FormilyCheckbox } from '@formily/antd'
 import { createBehavior, createResource } from '@designable/core'
 import { DnFC } from '@designable/react'
-import { createFieldSchema } from '../Field'
 import { AllSchemas } from '../../schemas'
 import { AllLocales } from '../../locales'
 
@@ -14,29 +12,29 @@ export interface IDesignableTitletProps {
   className?: string
 }
 
-export const DashTitle: DnFC<IDesignableTitleProps> = (props) => {
+export const DashImage: DnFC<IDesignableTitleProps> = (props) => {
   return <></>
 }
 
-DashTitle.Behavior = createBehavior({
-  name: 'Dash Title',
+DashImage.Behavior = createBehavior({
+  name: 'Dash Image',
   // extends: ['Field'],
-  selector: (node) => node.props['x-component'] === 'DashTitle',
+  selector: (node) => node.props['x-component'] === 'DashImage',
   designerProps: {
-    propsSchema: AllSchemas.DashTitle,
+    propsSchema: AllSchemas.DashImage,
   },
-  designerLocales: AllLocales.DashTitle,
+  designerLocales: AllLocales.DashImage,
 })
 
-DashTitle.Resource = createResource({
-  icon: 'TextSource',
+DashImage.Resource = createResource({
+  icon: 'CardSource',
   elements: [
     {
       componentName: 'Field',
       props: {
-        'x-type': 'content/title/title',
-        'x-component': 'DashTitle',
-        ...AllSchemas.DashTitleDefaultProp
+        'x-type': 'base/image/image',
+        'x-component': 'DashImage',
+        ...AllSchemas.DashImageDefaultProp
       },
     },
   ],

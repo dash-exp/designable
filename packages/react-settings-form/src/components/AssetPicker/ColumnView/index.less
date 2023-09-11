@@ -1,0 +1,132 @@
+.dash-column-view {
+
+    display: flex;
+    height: 60vh;
+
+    .dash-column-section-container {
+        display: flex;
+    }
+
+    .dash-column {
+        width: 250px;
+        height: 100%;
+        display: block;
+        justify-content: space-between;
+        background: #f3f3f3;
+        border-right: 1px solid #d5d5d5;
+
+        .dash-column-item {
+            overflow-y: scroll;
+            height: 100%;
+        }
+        .dash-column-item-row {
+            display: flex;
+            position: relative;
+            width: 100%;
+            align-items: center;
+            height: 50px;
+            // border-bottom: 1px solid #d7d7d7;
+
+            &.is-selected .item-thumbnai {
+                background-color: rgba(50,110,200,0.5);
+            }
+
+            &.is-current {
+                background-color: rgb(128 128 128 / 10%);
+            }
+
+            &.is-selected .item-thumbnai:after {
+                content: '';
+                background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjExNTJweCIgaGVpZ2h0PSIxMTUycHgiIHZpZXdCb3g9IjAgMCAxMTUyIDExNTIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDExNTIgMTE1MiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGQ9Ik01NzYsMEMyNTcuOSwwLDAsMjU3LjksMCw1NzZzMjU3LjksNTc2LDU3Niw1NzZzNTc2LTI1Ny45LDU3Ni01NzZTODk0LjEsMCw1NzYsMHogTTQzOSw5MTlMMjA5LDY4OQoJYy05LjQtOS40LTkuNC0yNC42LDAtMzMuOUwyOTUsNTY5YzkuNC05LjQsMjQuNi05LjQsMzMuOSwwbDEyNywxMjdsMzkxLTM5MWM5LjQtOS40LDI0LjYtOS40LDMzLjksMEw5NjcsMzkxCgljOS40LDkuNCw5LjQsMjQuNiwwLDMzLjlMNDczLDkxOUM0NjMuNiw5MjguNCw0NDguNCw5MjguNCw0MzksOTE5eiIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4=);
+                -webkit-background-size: 1.125rem 1.125rem;
+                -moz-background-size: 1.125rem 1.125rem;
+                background-size: 1.125rem 1.125rem;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: 3rem;
+            }
+            
+            .item-thumbnai {
+                padding: 10px;
+                height: 100%;
+                // background-color: #fafafa;
+                margin-right: 15px;
+                align-items: center;
+                justify-content: space-around;
+                width: 48px;
+                position: relative;
+                display: flex;
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+
+            .item-content {
+                display: block;
+                width: 100%;
+                line-height: 1rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .subtext {
+                   color: #969696;
+                }
+            }
+        }
+
+        .dash-column-item-row.has-children:after {
+            content: " ";
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTUyIiBoZWlnaHQ9IjExNTIiIHZpZXdCb3g9IjAgMCAxMTUyIDExNTIiPgo8cGF0aCBlbmFibGUtYmFja2dyb3VuZD0ibmV3IiBkPSJNMjQwIDE0NGwxNDQtMTQ0IDU3NiA1NzYtNTc2IDU3Ni0xNDQtMTQ0IDQzMi00MzJ6IiBmaWxsPSIjMDAwIi8+Cjwvc3ZnPg==);
+            -webkit-background-size: 0.75rem 0.75rem;
+            -moz-background-size: .75rem .75rem;
+            background-size: 0.75rem 0.75rem;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            width: 0.75rem;
+            height: 100%;
+            position: absolute;
+            right: 0.8125rem;
+            top: 0;
+            opacity: .4;
+        }
+    }
+
+    .dash-column-item-detail {
+        .thumbnail {
+            width: 200px;
+            height: 200px;
+            margin: 22px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+
+            svg {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .info {
+            color: #5e5e5e;
+        }
+        .value {
+            color: #1e1e1e;
+        }
+
+        .item-content {
+            margin: 24px;
+            line-height: 24px;
+        }
+    }
+
+
+}

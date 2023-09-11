@@ -28,3 +28,5 @@ export * from './FormLayout'
 
 export * from './DashTitle'
 export * from './Test'
+export * from './HtmlScript'
+export * from './DashImage'

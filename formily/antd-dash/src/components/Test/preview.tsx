@@ -16,16 +16,7 @@ export interface IDesignableTestProps {
 }
 
 export const Test: DnFC<IDesignableTestProps> = (props) => {
-  const tagName = props.mode === 'normal' || !props.mode ? 'div' : props.mode
-  return React.createElement(
-    tagName,
-    {
-      ...props,
-      className: cls(props.className, 'dn-test'),
-      'data-content-editable': 'x-component-props.content',
-    },
-    props.content
-  )
+  return <></>
 }
 
 Test.Behavior = createBehavior({

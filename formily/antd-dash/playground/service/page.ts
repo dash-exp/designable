@@ -36,7 +36,7 @@ export const loadInitialPageSchema = (designer: Engine) => {
   axios.get(`/api/content/page/get?itemPath=${itemPath}`).then((result)=>{
     const schema = {
       'form':{},
-      'schema':result.data.data.content.schema
+      'schema':result.data.data.content?.schema
       
     }
     designer.setCurrentTree(
@@ -60,7 +60,7 @@ export const savePageContent = (designer: Engine) => {
   const itemPath = getResourcePath() 
   const schema = JSON.stringify(transformToSchema(designer.getCurrentTree()))
   axios.post(`/api/content/page/updatePageContent?itemPath=${itemPath}`,schema,CONTENT_TYPE_JSON).then((result)=>{
-    console.log(result)
+    console.log('savePageContent',schema,result)
   })
   message.success('Save Success')
 }
