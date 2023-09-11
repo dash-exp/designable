@@ -26,68 +26,72 @@ export const Test: ISchema = {
           },
           enum: ['h1', 'h2', 'h3', 'p', 'normal'],
         }, 
-        cards:{
+        cards: {
           type: 'array',
-          'x-component': 'ArrayItems',
+          title:'Cards',
+          'x-component': 'ArrayCollapse',
+          maxItems: 3,
           'x-decorator': 'FormItem',
-          title: 'cards',
           items: {
             type: 'object',
-            'x-decorator': 'ArrayItems.Item',
+            'x-component': 'ArrayCollapse.CollapsePanel',
+            'x-component-props': {
+              header: 'Card',
+            },
             properties: {
-              sort: {
+              index: {
                 type: 'void',
-                'x-decorator': 'FormItem',
-                'x-component': 'ArrayItems.SortHandle',
+                'x-component': 'ArrayCollapse.Index',
               },
-              config: {
-                type: 'void',
-                title: 'setting',
-                'x-component': 'Editable.Popover',
-                'x-reactions':
-                '{{(field)=>field.title = field.parent.value.title || field.title}}',
-                properties: {
-                  title: {
-                    type: 'string',
-                    title: 'Title',
-                    'x-decorator': 'FormItem',
-                    'x-component': 'Input',
-                  },
-                  desc: {
-                    type: 'string',
-                    title: 'Description',
-                    'x-decorator': 'FormItem',
-                    'x-component': 'Input.TextArea',
-                  },
-                  link: {
-                    type: 'string',
-                    title: 'Link',
-                    'x-decorator': 'FormItem',
-                    'x-component': 'Input',
-                  },
-                  image: {
-                    type: 'string',
-                    title: 'Image',
-                    'x-decorator': 'FormItem',
-                    'x-component': 'Input',
-                  },
+              title: {
+                type: 'string',
+                title: 'Title',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+              },
+              desc: {
+                type: 'string',
+                title: 'Description',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input.TextArea',
+              },
+              link: {
+                type: 'string',
+                title: 'Link',
+                'x-decorator': 'FormItem',
+                'x-component': 'Input',
+              },
+              image: {
+                "type": "string",
+                "title":"Image",
+                "x-component": "AssetPicker",
+                "x-decorator": "FormItem",
+                'x-component-props': {
+                  "rootPath":"/content/dam",
                 },
               },
               remove: {
                 type: 'void',
-                'x-decorator': 'FormItem',
-                'x-component': 'ArrayItems.Remove',
+                'x-component': 'ArrayCollapse.Remove',
+              },
+              moveUp: {
+                type: 'void',
+                'x-component': 'ArrayCollapse.MoveUp',
+              },
+              moveDown: {
+                type: 'void',
+                'x-component': 'ArrayCollapse.MoveDown',
               },
             },
           },
           properties: {
-            add: {
+            addition: {
               type: 'void',
               title: '添加条目',
-              'x-component': 'ArrayItems.Addition',
+              'x-component': 'ArrayCollapse.Addition',
             },
           },
-        }     
+        },
 			}
 		},
     "style-group": {

@@ -4,6 +4,7 @@ export const Test = {
     'style-group':'样式',
     settings: {
       content: '测试文本内容',
+      path:"图片",
       id:'ID',
       theme:'主题',
       'style-group':{

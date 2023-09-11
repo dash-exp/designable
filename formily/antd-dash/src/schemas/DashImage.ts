@@ -11,6 +11,7 @@ export const DashImage: ISchema = {
 				"path": {
 					"type": "string",
 					"x-component": "AssetPicker",
+					"x-decorator": "FormItem",
 					'x-component-props': {
 						"rootPath":"/content/dam",
 					},
