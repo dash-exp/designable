@@ -100,7 +100,7 @@ export const transformToTreeNode = (
   const appendTreeNode = (parent: ITreeNode, schema: Schema) => {
     if (!schema) return
     const current = {
-      id: schema['x-designable-id'] || uid(),
+      id: schema['x-designable-id'] || schema['name'],
       componentName: realOptions.designableFieldName,
       props: cleanProps(schema.toJSON(false)),
       children: [],
@@ -110,12 +110,12 @@ export const transformToTreeNode = (
       appendTreeNode(current, schema.items)
     }
     schema.mapProperties((schema) => {
-      schema['x-designable-id'] = schema['x-designable-id'] || uid()
+      schema['x-designable-id'] = schema['x-designable-id'] || schema['name']
       appendTreeNode(current, schema)
     })
   }
   schema.mapProperties((schema) => {
-    schema['x-designable-id'] = schema['x-designable-id'] || uid()
+    schema['x-designable-id'] = schema['x-designable-id'] || schema['name']
     appendTreeNode(root, schema)
   })
   return root
