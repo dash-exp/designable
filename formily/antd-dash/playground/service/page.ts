@@ -30,6 +30,34 @@ const  CONTENT_TYPE_JSON = {
   }
 }
 
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+  if(response?.data?.code === 401){
+    const currentPage = encodeURI(location.pathname + location.search)
+    location.href=`/user/login?redirect=${currentPage}`;
+    return
+  }
+  return response;
+}, function (error) {
+  console.log('Error', error.message);
+});
+
+const  CONTENT_TYPE_JSON = {
+  headers:{
+    'Content-Type': 'application/json'
+  }
+}
+
+export async function getUserInfo () {
+  let result = {}
+  await axios.get('/api/system/user/getInfo').then((resp)=>{
+    result = resp.data
+  })
+
+  return result
+}
+
+
 export const loadInitialPageSchema = (designer: Engine) => {
   const itemPath = getResourcePath() 
 

@@ -1,14 +1,16 @@
 import React, { Fragment, useState } from 'react'
 import { observer, useField } from '@formily/react'
+import { InputProps } from 'antd/lib/input'
 import ColumnView from "./ColumnView";
 import { Button, ButtonProps,Modal,Input } from 'antd'
 import './styles.less'
 import { usePrefix, IconWidget } from '@designable/react'
 
-export interface IAssetPickerProps {
-  text: React.ReactNode
+
+export interface IAssetPickerProps extends Omit<InputProps, 'onChange'> {
+  value?: string
   rootPath?:string
-  triggerProps: ButtonProps
+  onChange?: (value: string) => void
 }
 
 export const AssetPicker: React.FC<IAssetPickerProps> = observer((props) => {
@@ -27,7 +29,8 @@ export const AssetPicker: React.FC<IAssetPickerProps> = observer((props) => {
   }
 
   const handleConfirm = () => {
-    props.value = path
+    // props.value = path
+    props.onChange(path)
     setVisible(false)
   }
 
@@ -43,7 +46,7 @@ export const AssetPicker: React.FC<IAssetPickerProps> = observer((props) => {
           <IconWidget onClick={handleOpen} {...props.triggerProps} infer="Add" style={{ cursor: 'pointer' }} />
         }
       />
-      <Modal open={visible} onCancel={handleClose} className="dash-asset-picker" onOk={handleConfirm}>
+      <Modal open={visible} onCancel={handleClose} className="dash-asset-picker" onOk={handleConfirm} zIndex={1050}>
          <ColumnView rootPath={rootPath} handleValueChange={setPath} ></ColumnView> 
       </Modal>
 

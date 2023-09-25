@@ -36,22 +36,16 @@ import {
 import { saveSchema,saveComp } from './service'
 import {
   Form,
-  Field,
-  Input,
-  Select,
-  TreeSelect,
-  Cascader,
-  Slider,
-  Rate,
-  NumberPicker,
-  Password,
-  Text,
-  Card,
-  ObjectContainer,
   DashTitle,
   DashImage,
   HtmlScript,
-  Test
+  Test,
+  HighlightCarousel,
+  AlertComponent,
+  ContentCard,
+  LinkList,
+  Highlight,
+  SocialFollow,
 } from '../src'
 
 import './main.less'
@@ -90,7 +84,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Test.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior])
+GlobalRegistry.setDesignerBehaviors([SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -119,9 +113,9 @@ const App = () => {
         <CompositePanel>
           <CompositePanel.Item title="panels.Component" icon="Component">
             <ResourceWidget
-              title="sources.Inputs"
+              title="Microsoft"
               sources={[
-                Test
+                AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
               ]}
             />
             <ResourceWidget

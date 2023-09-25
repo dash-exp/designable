@@ -32,7 +32,7 @@ HtmlScript.Resource = createResource({
     {
       componentName: 'Field',
       props: {
-        'x-type': 'base/html-script/html-script',
+        'x-type': 'base/cmp/html-script',
         'x-component': 'HtmlScript',
         ...AllSchemas.DashTitleDefaultProp
       },

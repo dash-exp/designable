@@ -45,35 +45,7 @@ const Text: React.FC<{
 
 const SchemaField = createSchemaField({
   components: {
-    Space,
-    FormGrid,
-    FormLayout,
-    FormTab,
-    FormCollapse,
-    ArrayTable,
-    ArrayCards,
-    FormItem,
-    DatePicker,
-    Checkbox,
-    Cascader,
-    Editable,
-    Input,
-    Text,
-    NumberPicker,
-    Switch,
-    Password,
-    PreviewText,
-    Radio,
-    Reset,
-    Select,
-    Submit,
-    TimePicker,
-    Transfer,
-    TreeSelect,
-    Upload,
-    Card,
-    Slider,
-    Rate,
+   
   },
 })
 

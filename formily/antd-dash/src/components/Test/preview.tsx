@@ -34,7 +34,7 @@ Test.Resource = createResource({
     {
       componentName: 'Field',
       props: {
-        'x-type': 'core/test/test',
+        'x-type': 'base/cmp/test',
         'x-component': 'Test',
         ...AllSchemas.DefaultTestProp
       },

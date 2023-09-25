@@ -11,7 +11,7 @@ export function indexOfParentContainer(ele?: HTMLElement) {
 
 export function createComponentHolder(containerEle: HTMLElement, cmpName: string, cmpId: string,child:TreeNode): void {
     const div = document.createElement('div');
-    div.innerHTML = `<div class="${cmpName} dash-editable" cmpid="${cmpId}" style="height:100px;">
+    div.innerHTML = `<div class="${cmpName} dash-editable" cmpid="${cmpId}">
           <section></section>
           <div class="dash-editable-placeholder" data-designer-node-id="${cmpId}"></div>
       </div>`;

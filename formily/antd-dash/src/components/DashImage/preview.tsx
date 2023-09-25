@@ -32,7 +32,7 @@ DashImage.Resource = createResource({
     {
       componentName: 'Field',
       props: {
-        'x-type': 'base/image/image',
+        'x-type': 'base/cmp/image',
         'x-component': 'DashImage',
         ...AllSchemas.DashImageDefaultProp
       },

@@ -34,7 +34,7 @@ DashTitle.Resource = createResource({
     {
       componentName: 'Field',
       props: {
-        'x-type': 'content/title/title',
+        'x-type': 'base/cmp/title',
         'x-component': 'DashTitle',
         ...AllSchemas.DashTitleDefaultProp
       },
