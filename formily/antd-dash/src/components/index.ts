@@ -1,10 +1,11 @@
 export * from './Field'
 export * from './Form'
 
-export * from './DashTitle'
-export * from './Test'
-export * from './HtmlScript'
-export * from './DashImage'
+export * from './Dash/DashTitle'
+export * from './Dash/Test'
+export * from './Dash/HtmlScript'
+export * from './Dash/DashImage'
+export * from './Dash/Container'
 
 //microsoft
 
@@ -14,5 +15,6 @@ export * from './Microsoft/ContentCard'
 export * from './Microsoft/LinkList'
 export * from './Microsoft/Highlight'
 export * from './Microsoft/SocialFollow'
+export * from './Microsoft/Footer'
 
 

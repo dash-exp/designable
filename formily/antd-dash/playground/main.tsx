@@ -40,12 +40,14 @@ import {
   DashImage,
   HtmlScript,
   Test,
+  Container,
   HighlightCarousel,
   AlertComponent,
   ContentCard,
   LinkList,
   Highlight,
   SocialFollow,
+  Footer,
 } from '../src'
 
 import './main.less'
@@ -84,7 +86,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior])
+GlobalRegistry.setDesignerBehaviors([Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -115,13 +117,13 @@ const App = () => {
             <ResourceWidget
               title="Microsoft"
               sources={[
-                AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
+                Footer,AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
               ]}
             />
             <ResourceWidget
               title="Dash.Base"
               sources={[
-                DashTitle,HtmlScript,DashImage
+                Container,DashTitle,HtmlScript,DashImage
               ]}
             />
           </CompositePanel.Item>

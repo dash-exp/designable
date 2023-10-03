@@ -101,7 +101,7 @@ export const transformToTreeNode = (
     if (!schema) return
     const current = {
       id: schema['x-designable-id'] || schema['name'],
-      componentName: realOptions.designableFieldName,
+      componentName: schema['x-component-name'] || realOptions.designableFieldName,
       props: cleanProps(schema.toJSON(false)),
       children: [],
     }

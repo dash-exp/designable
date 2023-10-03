@@ -1,17 +1,19 @@
 import React,{Children} from 'react'
-import { ComponentTreeWidget, useTreeNode,useDesigner } from '@designable/react'
+import { ComponentTreeWidget, useTreeNode,useDesigner,useOperation } from '@designable/react'
 import { observer } from '@formily/reactive-react'
 import 'antd/dist/antd.css'
 import ReactDOM from "react-dom";
 import { GlobalRegistry,UpdateNodePropsEvent,RemoveNodeEvent,InsertAfterEvent,InsertBeforeEvent,PrependNodeEvent,AppendNodeEvent,CloneNodeEvent } from '@designable/core'
 import { PureComponent, useState,useEffect } from 'react';
 import { createElement } from 'react';
-import { getHtmlEleByComponentId,createComponentHolder,indexOfParentContainer,removeEleByCmpId,loadInitialCompHtml } from './dom';
+import { getHtmlEleByComponentId,createComponentHolder,indexOfParentContainer,removeEleByCmpId,loadInitialCompHtml,handleStructureNode } from './dom';
 import './iframe.less';
 
 export const Content = () => {
 
   const designer = useDesigner()
+  const engine = useOperation()?.engine
+  handleStructureNode(engine)
   //组件删除
   designer.subscribeTo(RemoveNodeEvent, (event) => {
     const { source, target } = event.data
@@ -70,6 +72,7 @@ export const Content = () => {
         return ReactDOM.createPortal(
           <div className="dash-editable-placeholder" {...props} style={{
             display: 'block',
+            zIndex:10000 + node.depth,
             ...props.style,
           }}>
             {props.children}
@@ -78,30 +81,17 @@ export const Content = () => {
         );
 
       }),
-      Card: (props) => {
-        return (
-          <div
-            {...props}
-            style={{
-              background: '#eee',
-              border: '1px solid #ddd',
-              display: 'flex',
-              padding: 10,
-              height: props.children ? 'auto' : 150,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {props.children ? props.children : <span>拖拽字段进入该区域</span>}
-          </div>
-        )
-      },
-      Form: (props) => {
-        // 节点删掉后需要删除对应的dom结构
-        const rootContainer = document.getElementById("page-root");
-        const adjustComponents = () => {
-          // const rootContainer = document.getElementById("page-root");
+      Container: observer((props) => {
+        const node = useTreeNode()
+        const selector = `.dash-editable[cmpid='${node.id}']`;
+        const container = document.querySelector(selector); 
+         if(container === null) {
+          return <div>container editable not found</div>;
+        }
 
+        const adjustComponents = () => {
+          const rootContainer = document.getElementById("page-root");
+          
           if(rootContainer == null) {
             return;
           }
@@ -111,9 +101,10 @@ export const Content = () => {
           // 调整对应dom的位置或者生成新的组件dom结构
           Children.forEach(props.children, (child, index) => {
             let nodeId = child.props.node['id'];
-
+           
             let cmpName = child.props.node['componentName'];
             let componentDomEle = getHtmlEleByComponentId(nodeId);
+            console.log(nodeId,componentDomEle)
             if (!componentDomEle) {
               createComponentHolder(rootContainer, cmpName, nodeId,child.props.node);
               componentDomEle = getHtmlEleByComponentId(nodeId);
@@ -133,33 +124,77 @@ export const Content = () => {
         };
 
         useEffect(()=>{
-          console.log("adjustComponents")
+          // console.log("adjustComponents")
           adjustComponents()
         },[props.children])
 
-        // return (
-        //   <div
-        //     {...props}
-        //     style={{
-        //       display: 'flex',
-        //       justifyContent: 'center',
-        //       alignItems: 'center',
-        //     }}
-        //   >
-        //     {/* <span data-content-editable="title">FORM:</span> */}
-        //     {props.children ? props.children : <span>拖拽字段进入该区域</span>}
-        //   </div>
-        // )
         return ReactDOM.createPortal(
-          <div className="dash-editable-container" {...props} style={{
+          <>
+          <div className="dash-editable-placeholder" {...props} style={{
+            display: 'block',
+            zIndex:10000 + node.depth,
+            ...props.style,
+          }}>
+            {props.children}
+          </div>
+          <div className="dash-editable-container">Drag components here</div>
+           </>,
+          container
+        );
+
+      }),
+      Form: (props) => {
+        // 节点删掉后需要删除对应的dom结构
+        // const rootContainer = document.body;
+        // const adjustComponents = () => {
+        //   // const rootContainer = document.getElementById("page-root");
+          
+        //   if(rootContainer == null) {
+        //     return;
+        //   }
+
+        //   let preEle = null;
+      
+        //   // 调整对应dom的位置或者生成新的组件dom结构
+        //   Children.forEach(props.children, (child, index) => {
+        //     let nodeId = child.props.node['id'];
+           
+        //     let cmpName = child.props.node['componentName'];
+        //     let componentDomEle = getHtmlEleByComponentId(nodeId);
+        //     console.log(nodeId,componentDomEle)
+        //     if (!componentDomEle) {
+        //       createComponentHolder(rootContainer, cmpName, nodeId,child.props.node);
+        //       componentDomEle = getHtmlEleByComponentId(nodeId);
+        //     }
+        //     const domIndex = indexOfParentContainer(componentDomEle);
+        //     //console.log('index','dom',domIndex,'node',child.props.node.props['x-index'])
+
+        //     if (index !== domIndex) {
+        //       if (preEle === null) {
+        //         rootContainer.prepend(componentDomEle);
+        //       } else {
+        //         preEle.after(componentDomEle);
+        //       }
+        //     }
+        //     preEle = componentDomEle;
+        //   });
+        // };
+
+        // useEffect(()=>{
+        //   // console.log("adjustComponents")
+        //   //adjustComponents()
+        // },[props.children])
+
+        return ReactDOM.createPortal(
+          <div className="dash-editable" {...props} style={{
             display: 'block',
             ...props.style,
           }}>
             {props.children}
 
-            <div className="drag-holder">Drag components here</div>
+            {/* <div className="drag-holder">Drag components here</div> */}
           </div>,
-          rootContainer
+          document.body
         );
       },
     }}

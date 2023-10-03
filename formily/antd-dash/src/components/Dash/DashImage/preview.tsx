@@ -1,8 +1,8 @@
 import React from 'react'
 import { createBehavior, createResource } from '@designable/core'
 import { DnFC } from '@designable/react'
-import { AllSchemas } from '../../schemas'
-import { AllLocales } from '../../locales'
+import { AllSchemas } from '../../../schemas'
+import { AllLocales } from '../../../locales'
 
 export interface IDesignableTitletProps {
   value?: string

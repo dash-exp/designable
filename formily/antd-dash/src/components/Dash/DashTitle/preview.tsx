@@ -3,8 +3,8 @@ import { Checkbox as FormilyCheckbox } from '@formily/antd'
 import { createBehavior, createResource } from '@designable/core'
 import { DnFC } from '@designable/react'
 import { createFieldSchema } from '../Field'
-import { AllSchemas } from '../../schemas'
-import { AllLocales } from '../../locales'
+import { AllSchemas } from '../../../schemas'
+import { AllLocales } from '../../../locales'
 
 export interface IDesignableTitletProps {
   value?: string

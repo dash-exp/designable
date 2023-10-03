@@ -39,7 +39,7 @@ Form.Behavior = createBehavior({
       draggable: !node.isRoot,
       cloneable: !node.isRoot,
       deletable: !node.isRoot,
-      droppable: true,
+      droppable: false,
       propsSchema: {
         type: 'object',
         properties: {

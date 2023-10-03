@@ -72,7 +72,7 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
 
         return (
           <Drawer
-            title="Editting"
+            title={node.props['x-component']}
             className='dash-cmp-setting-drawer'
             width={500}
             maskClosable={false}

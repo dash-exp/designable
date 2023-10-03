@@ -1,5 +1,8 @@
 import { loadInitialPageSchema, loadCompHtml } from './service'
 import {getSchemaPath,getResourcePath} from './utils/pathUtil'
+import { useOperation } from '@designable/react'
+import { Engine,TreeNode } from '@designable/core'
+
 
 export function indexOfParentContainer(ele?: HTMLElement) {
     const index = Array.from(
@@ -11,9 +14,10 @@ export function indexOfParentContainer(ele?: HTMLElement) {
 
 export function createComponentHolder(containerEle: HTMLElement, cmpName: string, cmpId: string,child:TreeNode): void {
     const div = document.createElement('div');
+    const zIndex = 9999  + child.depth;
     div.innerHTML = `<div class="${cmpName} dash-editable" cmpid="${cmpId}">
           <section></section>
-          <div class="dash-editable-placeholder" data-designer-node-id="${cmpId}"></div>
+          <div class="dash-editable-placeholder" data-designer-node-id="${cmpId}" style="z-index:${zIndex}"></div>
       </div>`;
     containerEle.append(div.firstChild!);
     loadInitialCompHtml(child);
@@ -45,4 +49,33 @@ export function removeEleByCmpId(id: String) {
     const selector = `.dash-editable[cmpid='${id}']`;
     const ele = document.querySelector(selector)
     ele?.parentNode.removeChild(ele) 
+}
+
+export function handleStructureNode(engine:Engine) {
+     const selector = `.dash-editable[x-editable-structure]`;
+    document.querySelectorAll(selector).forEach(function (ele) {
+      //console.log(ele);
+      const nodeId = ele.getAttribute("x-editable-structure")
+
+      if(!engine.findNodeById(nodeId)){
+        const parentId = ele.getAttribute("x-editable-parent")
+        const parentNode = engine.findNodeById(parentId) || engine.getCurrentTree()
+        const current = {
+            id: nodeId,
+            componentName:ele.getAttribute("x-component-name") || "Field",
+            props: {
+                "x-component-name":ele.getAttribute("x-component-name"),
+                "x-component":ele.getAttribute("x-component")
+            },
+            children: [],
+        } 
+        const currentNode = new TreeNode(current,parentNode)
+        parentNode.children.push(currentNode)
+        console.log("handleStructureNode",parentNode,engine)
+
+      }
+      
+
+    })
+
 }
