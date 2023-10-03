@@ -24,6 +24,7 @@ DashTitle.Behavior = createBehavior({
   selector: (node) => node.props['x-component'] === 'DashTitle',
   designerProps: {
     propsSchema: AllSchemas.DashTitle,
+    "x-type":"base/cmp/title"
   },
   designerLocales: AllLocales.DashTitle,
 })

@@ -44,7 +44,13 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
       node.designerProps?.propsSchema &&
       selected.length === 1
     )
-    const formVal = {...node?.props}
+    let formVal = {...node?.props}
+    if(!formVal['x-type']){
+      formVal['x-type'] = node?.designerProps['x-type']
+    }
+
+      // todo:: 填充x-component和x-type
+
     const form = useMemo(() => {
       return createForm({
         initialValues: node?.designerProps?.defaultProps,
@@ -69,7 +75,7 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
 
     const render = () => {
       if (!isEmpty) {
-
+        console.log("form edit",node)
         return (
           <Drawer
             title={node.props['x-component']}

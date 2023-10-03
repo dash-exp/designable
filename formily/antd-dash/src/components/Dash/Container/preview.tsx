@@ -2,6 +2,9 @@ import React from 'react'
 import { Checkbox as FormilyCheckbox } from '@formily/antd'
 import { createBehavior, createResource } from '@designable/core'
 import { DnFC } from '@designable/react'
+// import { createFieldSchema } from '../Field'
+// import { AllSchemas } from '../../../schemas'
+// import { AllLocales } from '../../../locales'
 import { CmpSchema,DefaultProp} from './schema'
 import { locale} from './locale'
 
@@ -32,17 +35,12 @@ Container.Behavior = createBehavior({
 })
 
 Container.Resource = createResource({
-  icon: 'CardSource',
-  title: {
-    'zh-CN': '容器',
-    'en-US': 'Container',
-  },
+  icon: 'TextSource',
   elements: [
     {
-      componentName: 'Container',
+      componentName: 'Field',
       props: {
         'x-type': 'base/cmp/container',
-        'x-component-name': 'Container',//对应Iframe里面渲染对应的组件
         'x-component': 'Container',
         ...DefaultProp
       },

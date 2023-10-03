@@ -4,7 +4,7 @@ import {
   transformToSchema,
   transformToTreeNode,
 } from '@designable/formily-transformer'
-import {getSchemaPath,getResourcePath} from '../utils/pathUtil'
+import {getSchemaPath,getResourcePath,getNodeSchema} from '../utils/pathUtil'
 
 // 加载初始schema数据
 // 加载组件html
@@ -96,8 +96,11 @@ export const savePageContent = (designer: Engine) => {
 export const saveComp = (node:TreeNode) => {
   const schemaPath = getSchemaPath(node)
   const itemPath = getResourcePath() + '/:content/'+schemaPath
-  //console.log(itemPath,node.props)
-  axios.post(`/api/content/page/saveComp?itemPath=${itemPath}`,node.props).then((result)=>{
+  const schema = getNodeSchema(node)
+
+  console.log('saveComp for root',schema)
+
+  axios.post(`/api/content/page/saveComp?itemPath=${itemPath}`,schema).then((result)=>{
     //console.log(result)
   })
   message.success('Save Success')

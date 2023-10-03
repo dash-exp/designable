@@ -13,7 +13,7 @@ export const Content = () => {
 
   const designer = useDesigner()
   const engine = useOperation()?.engine
-  handleStructureNode(engine)
+
   //组件删除
   designer.subscribeTo(RemoveNodeEvent, (event) => {
     const { source, target } = event.data
@@ -63,10 +63,13 @@ export const Content = () => {
       Field: observer((props) => {
         const node = useTreeNode()
         // console.log(node)
-        const nodeId = node.props['x-designable-id'];
-        const selector = `.dash-editable[cmpid='${nodeId}']`;
+        //const nodeId = node.id;
+        const selector = `.dash-editable[cmpid='${node.id}']`;
         const container = document.querySelector(selector); 
+
+        {console.log("field render",node,selector)}
          if(container === null) {
+          {console.log("field render,container not found",node,selector)}
           return;
         }
         return ReactDOM.createPortal(
@@ -180,10 +183,11 @@ export const Content = () => {
         //   });
         // };
 
-        // useEffect(()=>{
-        //   // console.log("adjustComponents")
-        //   //adjustComponents()
-        // },[props.children])
+        useEffect(()=>{
+          handleStructureNode(engine)
+        },[])
+
+        {console.log("form render",new Date())}
 
         return ReactDOM.createPortal(
           <div className="dash-editable" {...props} style={{
@@ -191,8 +195,7 @@ export const Content = () => {
             ...props.style,
           }}>
             {props.children}
-
-            {/* <div className="drag-holder">Drag components here</div> */}
+          
           </div>,
           document.body
         );

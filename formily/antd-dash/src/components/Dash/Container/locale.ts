@@ -4,6 +4,7 @@ export const locale = {
     title: 'Container',
     'style-group':'样式',
     settings: {
+      path: '资源路径',
       id:'ID',
       theme:'主题',
       'style-group':{
@@ -18,6 +19,7 @@ export const locale = {
     title: 'Container',
     'style-group':'Style',
     settings: {
+      path: 'Path',
       id:'ID',
       'style-group':{
         'title':'Style'

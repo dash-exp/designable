@@ -58,7 +58,6 @@ import { Sandbox } from '@designable/react-sandbox'
 
 setNpmCDNRegistry('//cdn.jsdelivr.net/npm')
 
-
 GlobalRegistry.registerDesignerLocales({
   'zh-CN': {
     sources: {

@@ -1,7 +1,7 @@
 import { loadInitialPageSchema, loadCompHtml } from './service'
 import {getSchemaPath,getResourcePath} from './utils/pathUtil'
 import { useOperation } from '@designable/react'
-import { Engine,TreeNode } from '@designable/core'
+import { Engine,TreeNode,Designer } from '@designable/core'
 
 
 export function indexOfParentContainer(ele?: HTMLElement) {
@@ -64,18 +64,35 @@ export function handleStructureNode(engine:Engine) {
             id: nodeId,
             componentName:ele.getAttribute("x-component-name") || "Field",
             props: {
-                "x-component-name":ele.getAttribute("x-component-name"),
                 "x-component":ele.getAttribute("x-component")
             },
             children: [],
         } 
+
         const currentNode = new TreeNode(current,parentNode)
         parentNode.children.push(currentNode)
-        console.log("handleStructureNode",parentNode,engine)
-
-      }
-      
+      }    
 
     })
 
+    // setTimeout(() => {
+    //     const rootNode = engine.getCurrentTree()
+    //     rootNode.setProps({
+    //         ...rootNode.props,
+    //         version:new Date().getTime()
+    //     })
+        
+    //     document.querySelectorAll(selector).forEach(function (ele) {
+    //         //console.log(ele);
+    //         const nodeId = ele.getAttribute("x-editable-structure")
+    //         const node =engine.findNodeById(nodeId)
+    //         node.setProps({
+    //             ...node.props,
+    //             version:new Date().getTime()
+    //         })
+    //       })
+
+    // }, 1500);
+
+    
 }

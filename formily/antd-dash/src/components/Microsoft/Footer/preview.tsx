@@ -34,6 +34,7 @@ Footer.Behavior = createBehavior({
       deletable: false,
       droppable: false,
       propsSchema: CmpSchema,
+      "x-type":"ms/cmp/global/footer",
       defaultProps: {
         // labelCol: 6,
         // wrapperCol: 12,
