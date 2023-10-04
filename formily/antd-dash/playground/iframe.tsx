@@ -100,7 +100,7 @@ export const Content = () => {
 
         // {console.log("field render",node,selector)}
          if(container === null) {
-          {console.log("field render,container not found",node,selector)}
+          {console.log("field render,container not found",node)}
           return;
         }
         return ReactDOM.createPortal(
@@ -117,7 +117,7 @@ export const Content = () => {
       }),
       // Container: observer((props) => {
       //   const node = useTreeNode()
-      //   const selector = `.dash-editable[cmpid='${node.id}']`;
+      //   const selector = `.dash-editable[x-id='${node.id}']`;
       //   const container = document.querySelector(selector); 
       //    if(container === null) {
       //     return <div>container editable not found</div>;

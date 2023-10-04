@@ -14,7 +14,7 @@ export function indexOfParentContainer(ele?: HTMLElement) {
 function getCmpEleTemplate(node:TreeNode):HTMLElement{
     const div = document.createElement('div');
     const zIndex = 9999  + node.depth;
-    div.innerHTML = `<div class="${node.componentName} dash-editable" cmpid="${node.id}">
+    div.innerHTML = `<div class="${node.componentName} dash-editable" x-id="${node.id}">
           <section></section>
           <div class="dash-editable-placeholder" data-designer-node-id="${node.id}" style="z-index:${zIndex}"></div>
       </div>`;
@@ -50,7 +50,7 @@ export function loadInitialCompHtml(node:TreeNode): void {
     const schemaPath = getSchemaPath(node).replace("$.","")
     let pagePath = location.pathname.split('.html')[0]
     const itemPath = pagePath + '/:content/'+schemaPath + '.html'
-    const selector = `.dash-editable[cmpid='${node.id}'] section`;
+    const selector = `.dash-editable[x-id='${node.id}'] section`;
     const cmpEle = document.querySelector(selector);
     setTimeout(() => {
         loadCompHtml(itemPath).then((html)=>{
@@ -67,17 +67,17 @@ export function triggerRefresh(): void {
 }  
   
 export function getEleByNodeId(id: String) : HTMLElement | null {
-    const selector = `.dash-editable[cmpid='${id}']`;
+    const selector = `.dash-editable[x-id='${id}']`;
     return document.querySelector(selector);
 }
 
 export function getContainerEleByNodeId(id: String) : HTMLElement | null {
-    const selector = `.dash-editable-container[cmpid='${id}']`;
+    const selector = `.dash-editable-container[x-id='${id}']`;
     return document.querySelector(selector);
 }
 
 export function removeEleByCmpId(id: String) {
-    const selector = `.dash-editable[cmpid='${id}']`;
+    const selector = `.dash-editable[x-id='${id}']`;
     const ele = document.querySelector(selector)
     ele?.parentNode.removeChild(ele) 
     triggerRefresh()
