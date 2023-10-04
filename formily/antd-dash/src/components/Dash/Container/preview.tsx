@@ -30,6 +30,7 @@ Container.Behavior = createBehavior({
     deletable: false,
     droppable: true,
     propsSchema: CmpSchema,
+    'x-type': 'base/cmp/container',
   },
   designerLocales: locale,
 })

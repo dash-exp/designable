@@ -4,7 +4,7 @@ import {
   transformToSchema,
   transformToTreeNode,
 } from '@designable/formily-transformer'
-import {getSchemaPath,getResourcePath,getNodeSchema} from '../utils/pathUtil'
+import {getSchemaPath,getResourcePath,getNodeSchema,getPagePath} from '../utils/pathUtil'
 
 // 加载初始schema数据
 // 加载组件html
@@ -59,7 +59,7 @@ export async function getUserInfo () {
 
 
 export const loadInitialPageSchema = (designer: Engine) => {
-  const itemPath = getResourcePath() 
+  const itemPath = getPagePath() 
 
   axios.get(`/api/content/page/get?itemPath=${itemPath}`).then((result)=>{
     const schema = {
@@ -84,24 +84,26 @@ export async function loadCompHtml (url:string) {
     return result
 }
 
-export const savePageContent = (designer: Engine) => {
-  const itemPath = getResourcePath() 
+export const savePageContent = (designer: Engine,callback?: () => void) => {
+  const itemPath = getPagePath() 
   const schema = JSON.stringify(transformToSchema(designer.getCurrentTree()))
   axios.post(`/api/content/page/updatePageContent?itemPath=${itemPath}`,schema,CONTENT_TYPE_JSON).then((result)=>{
-    console.log('savePageContent',schema,result)
+    //console.log('savePageContent',schema,result)
+    callback()
   })
   message.success('Save Success')
 }
 
-export const saveComp = (node:TreeNode) => {
+export const saveComp = (node:TreeNode,callback?: () => void) => {
   const schemaPath = getSchemaPath(node)
-  const itemPath = getResourcePath() + '/:content/'+schemaPath
+  const itemPath = getPagePath() + '/:content/'+schemaPath
   const schema = getNodeSchema(node)
 
-  console.log('saveComp for root',schema)
+  //console.log('saveComp for root',schema)
 
   axios.post(`/api/content/page/saveComp?itemPath=${itemPath}`,schema).then((result)=>{
     //console.log(result)
+    callback()
   })
   message.success('Save Success')
 }

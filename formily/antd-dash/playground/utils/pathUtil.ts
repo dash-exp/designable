@@ -3,9 +3,18 @@ import {
   } from '@designable/formily-transformer'
 
 const HTML_EXTIENTION = '.html';
+
 export function getResourcePath() {
-    let pathArray = location.pathname.split(HTML_EXTIENTION)   
+    let pathArray = location.pathname.split(HTML_EXTIENTION)
     return pathArray.length > 1 ? pathArray[1]:''
+}
+
+export function getPagePath() {
+    if(self == top) {
+        return getResourcePath()
+    }
+    let pathArray = location.pathname.split(HTML_EXTIENTION)
+    return pathArray[0]
 }
 
 export function getSchemaPath(node:TreeNode){
@@ -17,7 +26,6 @@ export function getSchemaPath(node:TreeNode){
         schemaPath.push(currentNode.id)
         depth = depth -1
         currentNode = node.parent
-
     }
     const path = prefix + schemaPath.reverse().join(".properties.") 
     return path

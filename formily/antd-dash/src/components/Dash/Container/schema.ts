@@ -12,28 +12,7 @@ export const CmpSchema: ISchema = {
 					"x-decorator": "FormItem",
           title: 'Title',
 					"x-component": "Input"
-				},
-        desc: {
-          type: 'string',
-          title: 'Description',
-          'x-decorator': 'FormItem',
-          'x-component': 'Input.TextArea',
-        },
-        btnText: {
-          type: 'string',
-          title: 'Button Text',
-          'x-decorator': 'FormItem',
-          'x-component': 'Input',
-        },
-        image: {
-          "type": "string",
-          "title":"Image",
-          "x-component": "AssetPicker",
-          "x-decorator": "FormItem",
-          'x-component-props': {
-            "rootPath":"/content/dam/ms",
-          },
-        }
+				}
 			}
 		},
     "style-group": {
