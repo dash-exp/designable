@@ -16,5 +16,6 @@ export * from './Microsoft/LinkList'
 export * from './Microsoft/Highlight'
 export * from './Microsoft/SocialFollow'
 export * from './Microsoft/Footer'
+export * from './Microsoft/Header'
 
 

@@ -13,6 +13,24 @@ export const CmpSchema: ISchema = {
           title: 'Title',
 					"x-component": "Input"
 				},
+				"labelSearch": {
+					"type": "string",
+					"x-decorator": "FormItem",
+          title: 'Search Label',
+					"x-component": "Input"
+				}, 
+				"labelCart": {
+					"type": "string",
+					"x-decorator": "FormItem",
+          title: 'Cart Label',
+					"x-component": "Input"
+				}, 
+				"labelLogin": {
+					"type": "string",
+					"x-decorator": "FormItem",
+          title: 'Login Label',
+					"x-component": "Input"
+				},                         
         cards: {
           type: 'array',
           title:'Navigations',

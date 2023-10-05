@@ -104,13 +104,21 @@ export const Content = () => {
           return;
         }
         return ReactDOM.createPortal(
+          <>
           <div className="dash-editable-placeholder" {...props} style={{
             display: 'block',
             zIndex:10000 + node.depth,
             ...props.style,
           }}>
             {props.children}
-          </div>,
+          </div>
+          { node.designerProps?.droppable && 
+                <div className="dash-editable-dropholder" {...node.componentName} style={{
+                  zIndex:10000 + node.depth
+                }}>drag components here
+                </div>  
+             }
+          </>,
           container
         );
 
@@ -230,7 +238,7 @@ export const Content = () => {
         {console.log("form render",new Date())}
 
         return ReactDOM.createPortal(
-          <div className="dash-editable" {...props} style={{
+          <div className="dash-editable-placeholder" {...props} style={{
             display: 'block',
             ...props.style,
           }}>

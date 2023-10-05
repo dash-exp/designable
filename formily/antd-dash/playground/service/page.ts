@@ -89,7 +89,7 @@ export const savePageContent = (designer: Engine,callback?: () => void) => {
   const schema = JSON.stringify(transformToSchema(designer.getCurrentTree()))
   axios.post(`/api/content/page/updatePageContent?itemPath=${itemPath}`,schema,CONTENT_TYPE_JSON).then((result)=>{
     //console.log('savePageContent',schema,result)
-    callback()
+    callback && callback()
   })
   message.success('Save Success')
 }
@@ -103,7 +103,7 @@ export const saveComp = (node:TreeNode,callback?: () => void) => {
 
   axios.post(`/api/content/page/saveComp?itemPath=${itemPath}`,schema).then((result)=>{
     //console.log(result)
-    callback()
+    callback && callback()
   })
   message.success('Save Success')
 }

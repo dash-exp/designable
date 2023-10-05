@@ -48,6 +48,7 @@ import {
   Highlight,
   SocialFollow,
   Footer,
+  Header
 } from '../src'
 
 import './main.less'
@@ -85,7 +86,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
+GlobalRegistry.setDesignerBehaviors([Header.Behavior,Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -116,7 +117,7 @@ const App = () => {
             <ResourceWidget
               title="Microsoft"
               sources={[
-                Footer,AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
+                Header,Footer,AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
               ]}
             />
             <ResourceWidget
