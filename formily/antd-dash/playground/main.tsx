@@ -1,5 +1,5 @@
 import 'antd/dist/antd.less'
-import React, { useMemo } from 'react'
+import React, { useMemo,useState,useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import {
   Designer,
@@ -31,15 +31,15 @@ import {
   LogoWidget,
   ActionsWidget,
   SchemaEditorWidget,
-  PreviewPageWidget
+  PreviewPageWidget,
+  ComponentList
 } from './widgets'
-import { saveSchema,saveComp } from './service'
+import { saveSchema,saveComp,loadCompList } from './service'
 import {
   Form,
   DashTitle,
   DashImage,
   HtmlScript,
-  Test,
   Container,
   HighlightCarousel,
   AlertComponent,
@@ -52,58 +52,16 @@ import {
 } from '../src'
 
 import './main.less'
-
 import { getResourcePath } from './utils/pathUtil';
-import { createComponent } from './utils/componentUtil';
 
 import { Sandbox } from '@designable/react-sandbox'
 
 setNpmCDNRegistry('//cdn.jsdelivr.net/npm')
 
-const cmpDefine = {
-  "name":"ABC",
-  "x-type":"base/cmp/title",
-  "designerProps":{
-    draggable: false,
-    cloneable: false,
-    deletable: false,
-    droppable: true
-  }
-}
 
-const cmpAbc = createComponent(cmpDefine)
 
-console.log(cmpAbc)
-
-GlobalRegistry.registerDesignerLocales({
-  'zh-CN': {
-    sources: {
-      Inputs: '输入控件',
-      Layouts: '布局组件',
-      Arrays: '自增组件',
-      Displays: '展示组件',
-    },
-  },
-  'en-US': {
-    sources: {
-      Inputs: 'Inputs',
-      Layouts: 'Layouts',
-      Arrays: 'Arrays',
-      Displays: 'Displays',
-    },
-  },
-  'ko-KR': {
-    sources: {
-      Inputs: '입력',
-      Layouts: '레이아웃',
-      Arrays: '배열',
-      Displays: '디스플레이',
-    },
-  },
-})
-
-GlobalRegistry.setDesignerBehaviors([cmpAbc.Behavior,Header.Behavior,Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
-
+//GlobalRegistry.setDesignerBehaviors([Header.Behavior,Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
+//console.log(GlobalRegistry.getDesignerBehaviors())
 const App = () => {
   const resourcePath = getResourcePath();
   const engine = useMemo(
@@ -130,7 +88,7 @@ const App = () => {
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>
         <CompositePanel>
           <CompositePanel.Item title="panels.Component" icon="Component">
-            <ResourceWidget
+            {/* <ResourceWidget
               title="Microsoft"
               sources={[
                 Header,Footer,AlertComponent,HighlightCarousel,ContentCard,LinkList,Highlight,SocialFollow
@@ -139,9 +97,10 @@ const App = () => {
             <ResourceWidget
               title="Dash.Base"
               sources={[
-                cmpAbc,Container,DashTitle,HtmlScript,DashImage
+                Container,DashTitle,HtmlScript,DashImage
               ]}
-            />
+            /> */}
+            <ComponentList></ComponentList>
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />

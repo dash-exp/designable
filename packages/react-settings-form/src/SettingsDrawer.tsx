@@ -20,6 +20,7 @@ import { Empty,Drawer,Button,Space } from 'antd'
 import cls from 'classnames'
 import './styles.less'
 import './SettingsDrawer.less'
+import { GlobalRegistry } from '@designable/core'
 
 const GlobalState = {
   idleRequest: null,
@@ -38,7 +39,13 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
     const {submitHandler} = props
 
     const prefix = usePrefix('settings-form')
-    const schema = node?.designerProps?.propsSchema
+    let schema = node?.designerProps?.propsSchema
+    const xtype = node?.designerProps['x-type']
+
+    if (!schema?.properties){
+      schema = GlobalRegistry.getDesignerSchema(xtype)
+    }
+
     const isEmpty = !(
       node && node.editting &&
       node.designerProps?.propsSchema &&
@@ -46,7 +53,7 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
     )
     let formVal = {...node?.props}
     if(!formVal['x-type']){
-      formVal['x-type'] = node?.designerProps['x-type']
+      formVal['x-type'] = xtype
     }
     const form = useMemo(() => {
       return createForm({

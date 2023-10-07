@@ -6,11 +6,11 @@ import {
   transformToSchema,
   transformToTreeNode,
 } from '@designable/formily-transformer'
-import { GlobalRegistry,RemoveNodeEvent,InsertAfterEvent,InsertBeforeEvent,PrependNodeEvent,AppendNodeEvent,CloneNodeEvent } from '@designable/core'
-import { insertCmpEleBefore,insertCmpEleAfter,removeEleByCmpId,loadInitialCompHtml,handleStructureNode } from '../dom';
+import { GlobalRegistry } from '@designable/core'
+
 
 import { observer } from '@formily/react'
-import { loadInitialSchema, saveSchema ,loadInitialPageSchema,savePageContent} from '../service'
+import { loadInitialPageSchema,savePageContent} from '../service'
 
 export const ActionsWidget = observer(() => {
   const designer = useDesigner()
@@ -72,7 +72,7 @@ export const ActionsWidget = observer(() => {
     loadInitialPageSchema(designer)
     //loadInitialSchema(designer)
   }, [])
-  const supportLocales = ['zh-cn', 'en-us', 'ko-kr']
+  const supportLocales = ['zh-cn', 'en-us']
   useEffect(() => {
     if (!supportLocales.includes(GlobalRegistry.getDesignerLanguage())) {
       GlobalRegistry.setDesignerLanguage('zh-cn')

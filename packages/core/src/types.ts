@@ -126,7 +126,7 @@ export interface IDesignerStore<P> {
 }
 
 export type IDesignerIcons = Record<string, any>
-
+export type IDesignerSchemaStore = Record<string, any>
 export type IDesignerIconsStore = IDesignerStore<IDesignerIcons>
 export type IDesignerLocaleStore = IDesignerStore<IDesignerLocales>
 export type IDesignerBehaviorStore = IDesignerStore<IBehavior[]>

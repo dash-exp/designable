@@ -4,6 +4,7 @@ import { observable } from '@formily/reactive'
 import {
   IDesignerBehaviorStore,
   IDesignerIconsStore,
+  IDesignerSchemaStore,
   IDesignerLocaleStore,
   IDesignerLanguageStore,
   IDesignerBehaviors,
@@ -68,13 +69,39 @@ const DESIGNER_ICONS_STORE: IDesignerIconsStore = observable.ref({})
 
 const DESIGNER_LOCALES_STORE: IDesignerLocaleStore = observable.ref({})
 
+const DESIGNER_SCHEMA_STORE: IDesignerSchemaStore = observable.ref({})
+
 const DESIGNER_LANGUAGE_STORE: IDesignerLanguageStore = observable.ref(
   getBrowserLanguage()
 )
+let schemaHandler = (xtype: string) => {
+  //console.log('DESIGNER_GlobalRegistry schemaHandler',xtype)
+}
 
 const DESIGNER_GlobalRegistry = {
+
+
   setDesignerLanguage: (lang: string) => {
     DESIGNER_LANGUAGE_STORE.value = lang
+  },
+
+  setDesignerSchema: (xtype: string,schema:any) => {
+    DESIGNER_SCHEMA_STORE[xtype] = schema
+  },
+
+  setDesignerSchemaHandler: (handler:function) => {
+    schemaHandler = handler
+  },
+
+  getDesignerSchema: (xtype: string) => {
+    let schema = DESIGNER_SCHEMA_STORE[xtype]
+    console.log('DESIGNER_SCHEMA_STORE',DESIGNER_SCHEMA_STORE)
+    if(!schema) {
+      schemaHandler(xtype)
+      return DESIGNER_SCHEMA_STORE[xtype]
+    }
+    return schema
+
   },
 
   setDesignerBehaviors: (behaviors: IBehaviorLike[]) => {

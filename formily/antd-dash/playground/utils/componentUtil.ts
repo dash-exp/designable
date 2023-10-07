@@ -35,8 +35,10 @@ export function createComponent(props:any){
             {
               componentName: 'Field',
               props: {
+                ...props['defaultProps'],
                 'x-type': xType,
-                'x-component': xComponent,
+                'x-component': xComponent
+                
               },
             },
           ],
