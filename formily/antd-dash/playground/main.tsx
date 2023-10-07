@@ -54,10 +54,26 @@ import {
 import './main.less'
 
 import { getResourcePath } from './utils/pathUtil';
+import { createComponent } from './utils/componentUtil';
 
 import { Sandbox } from '@designable/react-sandbox'
 
 setNpmCDNRegistry('//cdn.jsdelivr.net/npm')
+
+const cmpDefine = {
+  "name":"ABC",
+  "x-type":"base/cmp/title",
+  "designerProps":{
+    draggable: false,
+    cloneable: false,
+    deletable: false,
+    droppable: true
+  }
+}
+
+const cmpAbc = createComponent(cmpDefine)
+
+console.log(cmpAbc)
 
 GlobalRegistry.registerDesignerLocales({
   'zh-CN': {
@@ -86,7 +102,7 @@ GlobalRegistry.registerDesignerLocales({
   },
 })
 
-GlobalRegistry.setDesignerBehaviors([Header.Behavior,Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
+GlobalRegistry.setDesignerBehaviors([cmpAbc.Behavior,Header.Behavior,Footer.Behavior,SocialFollow.Behavior,Highlight.Behavior,LinkList.Behavior,ContentCard.Behavior,AlertComponent.Behavior,HighlightCarousel.Behavior,Form.Behavior,DashTitle.Behavior,HtmlScript.Behavior,DashImage.Behavior,Container.Behavior])
 
 const App = () => {
   const resourcePath = getResourcePath();
@@ -123,7 +139,7 @@ const App = () => {
             <ResourceWidget
               title="Dash.Base"
               sources={[
-                Container,DashTitle,HtmlScript,DashImage
+                cmpAbc,Container,DashTitle,HtmlScript,DashImage
               ]}
             />
           </CompositePanel.Item>

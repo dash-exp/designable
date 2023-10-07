@@ -42,5 +42,5 @@ export const DashImage: ISchema = {
 }
 
 export const DashImageDefaultProp = {
-  path:'/content/dam/oneplus/common/placeholder-image.webp',
+  path:'/content/dam/common/placeholder-image.webp',
 }

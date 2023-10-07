@@ -19,11 +19,16 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
   const [remove, setRemove] = useState(false)
   const [root, setRoot] = useState<Element>()
   const prefix = usePrefix('drawer-setter')
-  const formWrapperCls = usePrefix('settings-form-wrapper')
+  const formWrapperCls = usePrefix('editor-settings-form-wrapper')
   useLayoutEffect(() => {
     const wrapper = document.querySelector('.' + formWrapperCls)
     if (wrapper) {
       setRoot(wrapper)
+    } else {
+      const divElement = document.createElement('div');
+      divElement.className = formWrapperCls;
+      document.body.appendChild(divElement);
+      setRoot(document.querySelector('.' + formWrapperCls))
     }
   }, [node])
 

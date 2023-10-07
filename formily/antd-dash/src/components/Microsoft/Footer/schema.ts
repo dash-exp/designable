@@ -13,60 +13,131 @@ export const CmpSchema: ISchema = {
           title: 'Title',
 					"x-component": "Input"
 				},
-        cards: {
+        "country": {
+					"type": "string",
+					"x-decorator": "FormItem",
+          title: 'Label Country',
+					"x-component": "Input"
+				},
+        navs: {
+          "x-decorator": "FormItem",
+          title: 'Navigations',
+          'x-component': 'ArrayItems',
           type: 'array',
-          title:'Navigations',
-          'x-component': 'ArrayCollapse',
-          maxItems: 3,
-          'x-decorator': 'FormItem',
           items: {
             type: 'object',
-            'x-component': 'ArrayCollapse.CollapsePanel',
+            'x-decorator': 'ArrayItems.Item',
             'x-component-props': {
-              header: 'Card',
+              header: 'Nav',
+            },
+            'x-decorator-props': {
+              style: {
+                alignItems: 'center',
+                borderRadius: 3,
+                paddingTop: 6,
+                paddingBottom: 6,
+              },
             },
             properties: {
-              index: {
+              sortable: {
                 type: 'void',
-                'x-component': 'ArrayCollapse.Index',
+                'x-component': 'ArrayItems.SortHandle',
+                'x-component-props': { style: { marginRight: 10 } },
               },
               title: {
                 type: 'string',
-                title: 'Title',
                 'x-decorator': 'FormItem',
                 'x-component': 'Input',
               },
-              link: {
-                type: 'string',
-                title: 'Link',
+              drawer: {
+                type: 'void',
+                'x-component-props': {
+                  text: 'edit',
+                },
                 'x-decorator': 'FormItem',
-                'x-component': 'Input',
+                'x-component': 'DrawerSetter',
+                properties: {
+                  title: {
+                    type: 'string',
+                    title: 'Title',
+                    'x-decorator': 'FormItem',
+                    'x-component': 'Input',
+                  },
+                  links: {
+                    type: 'array',
+                    title:'Links',
+                    'x-component': 'ArrayCollapse',
+                    maxItems: 3,
+                    'x-decorator': 'FormItem',
+                    items: {
+                      type: 'object',
+                      'x-component': 'ArrayCollapse.CollapsePanel',
+                      'x-component-props': {
+                        header: 'Item',
+                      },
+                      properties: {
+                        index: {
+                          type: 'void',
+                          'x-component': 'ArrayCollapse.Index',
+                        },
+                        title: {
+                          type: 'string',
+                          title: 'Title',
+                          'x-decorator': 'FormItem',
+                          'x-component': 'Input',
+                        },
+                        link: {
+                          type: 'string',
+                          title: 'Link',
+                          'x-decorator': 'FormItem',
+                          'x-component': 'Input',
+                        },
+                        remove: {
+                          type: 'void',
+                          'x-component': 'ArrayCollapse.Remove',
+                        },
+                        moveUp: {
+                          type: 'void',
+                          'x-component': 'ArrayCollapse.MoveUp',
+                        },
+                        moveDown: {
+                          type: 'void',
+                          'x-component': 'ArrayCollapse.MoveDown',
+                        },
+                      },
+                    },
+                    properties: {
+                      addition: {
+                        type: 'void',
+                        title: 'add item',
+                        'x-component': 'ArrayCollapse.Addition',
+                      },
+                    },
+                  },
+                },
               },
               remove: {
                 type: 'void',
-                'x-component': 'ArrayCollapse.Remove',
-              },
-              moveUp: {
-                type: 'void',
-                'x-component': 'ArrayCollapse.MoveUp',
-              },
-              moveDown: {
-                type: 'void',
-                'x-component': 'ArrayCollapse.MoveDown',
+                'x-component': 'ArrayItems.Remove',
+                'x-component-props': { style: { marginLeft: 5 } },
               },
             },
           },
           properties: {
-            addition: {
+            addItem: {
               type: 'void',
-              title: 'add item',
-              'x-component': 'ArrayCollapse.Addition',
+              'x-component': 'ArrayItems.Addition',
+              'x-component-props': {
+                style: {
+                  marginBottom: 10,
+                },
+              },
             },
           },
-        },
+        },                
         links: {
           type: 'array',
-          title:'Links',
+          title:'Bottom Links',
           'x-component': 'ArrayCollapse',
           maxItems: 3,
           'x-decorator': 'FormItem',
@@ -74,7 +145,7 @@ export const CmpSchema: ISchema = {
             type: 'object',
             'x-component': 'ArrayCollapse.CollapsePanel',
             'x-component-props': {
-              header: 'Card',
+              header: 'Item',
             },
             properties: {
               index: {

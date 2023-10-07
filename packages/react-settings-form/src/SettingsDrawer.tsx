@@ -48,9 +48,6 @@ export const SettingsDrawer: React.FC<ISettingDrawerProps> = observer(
     if(!formVal['x-type']){
       formVal['x-type'] = node?.designerProps['x-type']
     }
-
-      // todo:: 填充x-component和x-type
-
     const form = useMemo(() => {
       return createForm({
         initialValues: node?.designerProps?.defaultProps,
